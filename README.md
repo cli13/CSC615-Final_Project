@@ -10,7 +10,7 @@ Rules:
 6.  You shall not change the pin used by a component without approval of other group members.
 7.  You shall write readable code.
 8.  You shall make easy code to follow within reason, if it cannot be done then use coments to explain.
-9.  You shall not make any changes to the makefile without Hardware Manager approval.
+9.  You shall not make any changes to the makefile in master branch without Hardware Manager approval.
 10. Only the carController.h shall include all other files in our project, test files are an exception.
 11. If you want to test code you shall make a test file named YourName_test.c
 12. You shall not commit test files to the repository.
