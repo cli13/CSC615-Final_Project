@@ -10,7 +10,7 @@ void echoSensorSet(void){
 }
 
 void calculateDistance(unsigned int time){
-    distance = (double) (time) * (SPEED_OF_SOUND) / (double) 1000;
+    distance = (double) (time) * (SPEED_OF_SOUND);
 }
 
 void prepareTrigger(void){
@@ -19,16 +19,17 @@ void prepareTrigger(void){
     digitalWrite(TRIGGER_PIN, LOW);
 }
 
-unsigned int getTime(void){
-    unsigned int start, end;
+double getTime(void){
+    clock_t start, end;
+    double delta = 0.0;
     while(digitalRead(ECHO_PIN) == 0){}
-	start = millis();
+	start = clock();
     while(digitalRead(ECHO_PIN) == 1){}
-    end = millis();
-    unsigned int delta = end - start;
-    pritnf("start: %d", start);
-    pritnf("end: %d", end);
-    pritnf("delta: %d", delta);
+    end = clock();
+    delta = (double) (end - start) / CLOCKS_PER_SEC;
+    printf("start: %d\n", start);
+    printf("end: %d\n", end);
+    printf("delta: %d\n", delta);
     return delta;
 }
 
