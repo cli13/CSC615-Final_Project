@@ -28,7 +28,7 @@ double distance;
 //Contributors:
 void  echoSensorSet(void);
 
-//Takes a unsigned int variable that indicates the times in milliseconds
+//Takes a double variable that indicates the times in milliseconds
 //took the echo to come back.
 //Contributors:
 void calculateDistance(double time);
@@ -37,13 +37,13 @@ void calculateDistance(double time);
 //Contributors:
 void  prepareTrigger(void);
 
-//This function returns the time as a unsigned int it took for the echo to
-//come back.
+//This function returns the time in seconds it took for the echo to
+//come back. Using time.h's clock() function 
 //This return time in milliseconds 
 //Contributors:
 double getTime(void);
 
-//This function returns a float with the distance.
+//This function returns a double  with the distance.
 //Contributors:
 double getDistance(void);
 
