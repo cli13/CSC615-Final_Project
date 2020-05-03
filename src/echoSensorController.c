@@ -38,3 +38,11 @@ float getDistance(){
 void displayDistance(){
     printf("Distance: "+ getDistance() + "cm\n")
 }
+
+//testing sensor functions
+int main(void){
+    echoSensorSet();
+    prepareTrigger();
+    calculateDistance(getTime());
+    displayDistance();
+}
