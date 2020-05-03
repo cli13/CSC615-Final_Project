@@ -34,7 +34,7 @@ double getDistance(){
 }
 
 void displayDistance(){
-    printf("Distance: %f.2 cm\n", getDistance());
+    printf("Distance: %.2f cm\n", getDistance());
 }
 
 void echoSensorCleanUp(){
