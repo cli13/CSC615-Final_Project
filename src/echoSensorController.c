@@ -20,14 +20,14 @@ void prepareTrigger(void){
 }
 
 unsigned int getTime(void){
+    unsigned int start, end;
     while(digitalRead(ECHO_PIN) == 0){
-        unsigned int start = millis();
+        start = millis();
     }
     while(digitalRead(ECHO_PIN) == 1){
-        unsigned int end = millis();
+        end = millis();
     }
     unsigned int delta = end - start;
-
     return delta;
 }
 
@@ -36,7 +36,12 @@ float getDistance(){
 }
 
 void displayDistance(){
-    printf("Distance: "+ getDistance() + "cm\n")
+    printf("Distance: %f.2 cm\n", getDistance())
+}
+
+void echoSensorCleanUp(){
+    digitalWrite(TRIGGER_PIN, LOW);
+    digitalWrite(ECHO_PIN, LOW);
 }
 
 //testing sensor functions
