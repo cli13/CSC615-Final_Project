@@ -27,16 +27,18 @@ unsigned int getTime(void){
     while(digitalRead(ECHO_PIN) == 1){
         end = millis();
     }
+    printf("start: %f", start);
+    printf("end: %f", end);
     unsigned int delta = end - start;
     return delta;
 }
 
-float getDistance(){
+double getDistance(){
     return distance;
 }
 
 void displayDistance(){
-    printf("Distance: %f.2 cm\n", getDistance())
+    printf("Distance: %f.2 cm\n", getDistance());
 }
 
 void echoSensorCleanUp(){
