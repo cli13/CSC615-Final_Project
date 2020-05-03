@@ -19,6 +19,7 @@
 
 #define LINESENSOR_ONE_PIN       24  //pin 35(GPIO 19)
 #define LINESENSOR_TWO_PIN       25  //pin 37(GPIO 26)
+#define LINESENSOR_THREE_PIN     7   //pin 7 (GPIO  4)
 
 //function signatures and documentation to be added later
 

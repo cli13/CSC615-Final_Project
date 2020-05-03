@@ -18,8 +18,8 @@
 #include <pthread.h>
 #include <wiringPi.h>
 
-#define ECHO_PIN               22       //GPIO 6 (pin 31)
-#define TRIGGER_PIN            21       //GPIO 5 (pin 29)
+#define ECHO_PIN               22       //pin 31(GPIO 6)
+#define TRIGGER_PIN            21       //pin 29(GPIO 5)
 #define SPEED_OF_SOUND         34300.0  //in centimeters per second
 
 //This function sets the pins being used by the echo sensor.

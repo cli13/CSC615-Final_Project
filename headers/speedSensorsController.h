@@ -18,14 +18,18 @@
 #include <pthread.h>
 #include <wiringPi.h>
 
-#define PI                    3.14159265358979323846  //the value of pi
-#define NUMBER_OF_MOTORS      2                       //This defines the number of motors being analized by speed encored.
-#define PULSES_PER_ROTATION   20                      //The number of holes in the wheel encoder. The speed sensor reads each hole as a pulse.
-#define SPEED_SENSOR_PIN      27                      //pin 36(GPIO 16)
-#define SPEED_SENSOR_TWO_PIN  28                      //pin 38(GPIO 20)
-#define TIME_TO_MEASURE       1.0                     //Time frame used to measure pulses.
-#define ARRAY_INIT_VAL        0                       //Initial value for array elements.
-#define ENCODER_DIAMETER      2.5                     //in centimeters.
+#define PI                      3.14159265358979323846  //the value of pi
+#define NUMBER_OF_MOTORS        4                       //This defines the number of motors being analized by speed encored.
+#define PULSES_PER_ROTATION     20                      //The number of holes in the wheel encoder. The speed sensor reads each hole as a pulse.
+
+#define SPEED_SENSOR_ONE_PIN    27                      //pin 36(GPIO 16)
+#define SPEED_SENSOR_TWO_PIN    28                      //pin 38(GPIO 20)
+#define SPEED_SENSOR_THREE_PIN  29                      //pin 40(GPIO 21)
+#define SPEED_SENSOR_FOUR_PIN   1                       //pin 12(GPIO 18)
+
+#define TIME_TO_MEASURE         1.0                     //Time frame used to measure pulses.
+#define ARRAY_INIT_VAL          0                       //Initial value for array elements.
+#define ENCODER_DIAMETER        2.5                     //in centimeters.
 
 //It sets up the pins needed for the speed sensor. 
 //Contributors:
@@ -39,7 +43,7 @@ int readPulses(double time);
 //Contributors:
 double calculateAngularSpeed(int totalPulses, double time);
 
-//calculates and returns linear speed using formula v = ωr. Speed in meters per second.
+//calculates and returns linear speed using formula v = ωr. Speed in centimeters per second.
 //Contributors:
 double calculateLinearSpeed(double diameter, double angularSpeed);
 
