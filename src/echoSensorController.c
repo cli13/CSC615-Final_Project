@@ -9,8 +9,8 @@ void echoSensorSet(void){
     digitalWrite(ECHO_PIN, HIGH);
 }
 
-void calculateDistance(unsigned int time){
-    distance = (double) (time) * (SPEED_OF_SOUND);
+void calculateDistance(double time){
+    distance = (time) * (SPEED_OF_SOUND);
 }
 
 void prepareTrigger(void){

@@ -20,9 +20,9 @@
 
 #define ECHO_PIN               22       //pin 31(GPIO 6)
 #define TRIGGER_PIN            21       //pin 29(GPIO 5)
-#define SPEED_OF_SOUND         34300.0  //in centimeters per second
+#define SPEED_OF_SOUND         17150.0  //half of speed of sound in cm
 
-float distance;
+double distance;
 
 //This function sets the pins being used by the echo sensor.
 //Contributors:
@@ -41,11 +41,11 @@ void  prepareTrigger(void);
 //come back.
 //This return time in milliseconds 
 //Contributors:
-unsigned int getTime(void);
+double getTime(void);
 
 //This function returns a float with the distance.
 //Contributors:
-float getDistance(void);
+double getDistance(void);
 
 //This function displays the distance that was calculated by using the echo.
 //Contributors:
