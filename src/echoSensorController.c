@@ -27,9 +27,7 @@ double getTime(void){
     while(digitalRead(ECHO_PIN) == 1){}
     end = clock();
     delta = (double) (end - start) / CLOCKS_PER_SEC;
-    printf("start: %d\n", start);
-    printf("end: %d\n", end);
-    printf("delta: %d\n", delta);
+    printf("delta: %f\n", delta);
     return delta;
 }
 

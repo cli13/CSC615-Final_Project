@@ -31,7 +31,7 @@ void  echoSensorSet(void);
 //Takes a unsigned int variable that indicates the times in milliseconds
 //took the echo to come back.
 //Contributors:
-void calculateDistance(unsigned int time);
+void calculateDistance(double time);
 
 //This function prepares the trigger to send out the echo.
 //Contributors:
