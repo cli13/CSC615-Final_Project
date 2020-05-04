@@ -27,4 +27,11 @@
 //Contributors:
 void lineSensorsCleanUp(void);
 
+//This function sets up all the pins for the linesensors that are being used.
+void lineSensorSetup(void);
+
+
+//This function reads a linepin and return the pin's output
+int readLinePin(int linePin)
+
 #endif
