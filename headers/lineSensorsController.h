@@ -32,6 +32,6 @@ void lineSensorSetup(void);
 
 
 //This function reads a linepin and return the pin's output
-int readLinePin(int linePin)
+int readLinePin(int readPin)
 
 #endif

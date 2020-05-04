@@ -12,8 +12,8 @@ int readLinePin(int readPin){
 }
 
 int main(void){
-    printf("pin1: %d", readLinePin(LINESENSOR_ONE_PIN));
-    printf("pin1: %d", readLinePin(LINESENSOR_TWO_PIN));
-    printf("pin1: %d", readLinePin(LINESENSOR_THREE_PIN));
+    printf("pin1: %d\n", readLinePin(LINESENSOR_ONE_PIN));
+    printf("pin2: %d\n", readLinePin(LINESENSOR_TWO_PIN));
+    printf("pin3: %d\n", readLinePin(LINESENSOR_THREE_PIN));
     return 0;
 }
