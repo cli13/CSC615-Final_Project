@@ -6,9 +6,16 @@
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 
+void lineSensorsCleanUp(void) {
+	if ((digitalRead(LINESENSOR_ONE_PIN) == HIGH) || (digitalRead(LINESENSOR_TWO_PIN) == HIGH)) {
+		digitalWrite(LINESENSOR_ONE_PIN, LOW);
+		digitalWrite(LINESENSOR_TWO_PIN, LOW);
+	}
+}
+
+// ************** Test code ********************
 #define LED_PIN 4 // PIN 16, GPIO23
 
-// Test code
 int main(int argc, char** argv) {
 	int rc;
 
@@ -63,4 +70,5 @@ int main(int argc, char** argv) {
 
 	return 0;
 }
+// ******************** end ************************ 
 
