@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 
-	// set the LED_PIN, and LINESENSOR_ONE_PIN to be output
+	// set the LED_PIN to be output, and LINESENSOR_ONE_PIN to be input
 	pinMode(LED_PIN, OUTPUT);
 	pinMode(LINESENSOR_ONE_PIN, INPUT);
 
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
 			delay(200);
 		}
 		endTime = millis();
-		printf("****** DigitalRead time: %l\n", endTime - startTime);
+		printf("****** DigitalRead run time: %l\n", endTime - startTime);
 
 		startTime = millis();
 		if (wiringPiI2CRead(LINESENSOR_ONE_PIN) == LOW) {
@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
 			delay(200);
 		}
 		endTime = millis();
-		printf("****** I2C time: %l\n", endTime - startTime);
+		printf("****** I2C run time: %l\n", endTime - startTime);
 	}
 
 	return 0;
