@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <pthread.h>
 #include <wiringPi.h>
 
@@ -25,5 +26,7 @@
 //This function sets all the pins off for the line sensors.
 //Contributors:
 void lineSensorsCleanUp(void);
+void lineSensorsSetup();
+bool isOnLine(int);
 
 #endif

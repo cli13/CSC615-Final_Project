@@ -13,6 +13,22 @@ void lineSensorsCleanUp(void) {
 	}
 }
 
+void lineSensorsSetup() {
+	int rc;
+
+	if ((rc = wiringPiSetup()) == -1) {
+		perror("Fail to setup wiringPi\n");
+		exit(1);
+	}
+
+	pinMode(LINESENSOR_ONE_PIN, INPUT);
+	pinMode(LINESENSOR_TWO_PIN, INPUT);
+}
+
+bool isOnLine(int sensorPin) {
+	return (digitalRead(sensorPin) == HIGH);
+}
+
 // ************** Test code ********************
 #define LED_PIN 4 // PIN 16, GPIO23
 
