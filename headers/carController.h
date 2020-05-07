@@ -25,4 +25,7 @@
 //Contributors: Osbaldo Martinez
 void cleanUp();
 
+//set all four motors on the car to move in one direction
+void movefoward(void);
+
 #endif

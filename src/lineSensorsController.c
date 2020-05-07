@@ -12,6 +12,7 @@ int readLinePin(int readPin){
 }
 
 int main(void){
+    lineSensorSetup();
     while(1){
     printf("pin1: %d\n", readLinePin(LINESENSOR_ONE_PIN));
     printf("pin2: %d\n", readLinePin(LINESENSOR_TWO_PIN));

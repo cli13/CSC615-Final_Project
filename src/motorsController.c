@@ -61,9 +61,9 @@ void motorStop(int enabler, int control, int control2){
     digitalWrite(control2, LOW);
 }
 
+
 void *motorToControlForward(void *ptr){
 
-//
 
 }
 
