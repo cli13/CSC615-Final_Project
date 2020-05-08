@@ -1,5 +1,4 @@
-
- LIBS = -lpthreads -lwiringPi
+  LIBS = -lpthreads -lwiringPi
  # the compiler: gcc for C program, define as g++ for C++
   CC = gcc
  
