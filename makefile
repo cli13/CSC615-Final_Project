@@ -9,7 +9,7 @@ LIBS = -lpthreads -lwiringPi
   CFLAGS  =-Wall
 
   # the build target executable:
-  TARGET = myprog
+  TARGET = carController
 
   all: $(TARGET)
 
