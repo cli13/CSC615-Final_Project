@@ -1,9 +1,17 @@
 
 LIBS = -lpthreads -lwiringPi
-CFLAGS = -Wall
+ # the compiler: gcc for C program, define as g++ for C++
+  CC = gcc
 
-# (This should be the actual list of C files)
-SRC=$(wildcard '*.c')
+  # compiler flags:
+  #  -g    adds debugging information to the executable file
+  #  -Wall turns on most, but not all, compiler warnings
+  CFLAGS  =-Wall
 
-test: $(SRC)
-    gcc -o $@ $^ $(CFLAGS) $(LIBS)
+  # the build target executable:
+  TARGET = myprog
+
+  all: $(TARGET)
+
+  $(TARGET): $(TARGET).c
+  	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c $(LIBS)
