@@ -26,7 +26,13 @@
 //This function sets all the pins off for the line sensors.
 //Contributors:
 void lineSensorsCleanUp(void);
+
+//This function set up all the pin for the line sensors
 void lineSensorsSetup();
+
+//This function check whether the linesensor is detecting a line or not
+//parameter: the pin of the linesensor
+//return true when the linesensor detect a line, return false otherwise
 bool isOnLine(int);
 
 #endif
