@@ -1,6 +1,6 @@
 output : carController.o echoSensorsController.o lineSensorsController.o motorsController.o speedSensorsController.o
 	gcc -o output carController.o echoSensorsController.o lineSensorsController.o motorsController.o speedSensorsController.o -lpthread -lwiringP
-carController.o : carController.c carController.h
+carController.o : src/carController.c header/carController.h
 	gcc -c carController.c
 echoSensorsController.o : echoSensorsController.c echoSensorsController.h
 	gcc -c echoSensorsController.c
