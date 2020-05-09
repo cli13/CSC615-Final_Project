@@ -29,7 +29,7 @@
 
 #define TIME_TO_MEASURE         1.0                     //Time frame used to measure pulses.
 #define ARRAY_INIT_VAL          0                       //Initial value for array elements.
-#define ENCODER_DIAMETER        2.5                     //in centimeters.
+#define WHEEL_DIAMETER          6                      //in centimeters.
 
 //It sets up the pins needed for the speed sensor. 
 //Contributors:

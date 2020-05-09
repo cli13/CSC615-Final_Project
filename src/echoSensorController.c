@@ -1,4 +1,4 @@
-#include "./echoSensorController.h"
+#include "../headers/echoSensorController.h"
 
 void echoSensorSet(void){
     wiringPiSetup();
@@ -42,12 +42,4 @@ void displayDistance(){
 void echoSensorCleanUp(){
     digitalWrite(TRIGGER_PIN, LOW);
     digitalWrite(ECHO_PIN, LOW);
-}
-
-//testing sensor functions
-int main(void){
-    echoSensorSet();
-    prepareTrigger();
-    calculateDistance(getTime());
-    displayDistance();
 }

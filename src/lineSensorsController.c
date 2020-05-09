@@ -1,4 +1,4 @@
-#include "./lineSensorsController.h"
+#include "../headers/lineSensorsController.h"
 
 void lineSensorSetup(void){
     wiringPiSetup();
@@ -9,15 +9,4 @@ void lineSensorSetup(void){
 
 int readLinePin(int readPin){
     return digitalRead(readPin);
-}
-
-int main(void){
-    lineSensorSetup();
-    while(1){
-    printf("pin1: %d\n", readLinePin(LINESENSOR_ONE_PIN));
-    printf("pin2: %d\n", readLinePin(LINESENSOR_TWO_PIN));
-    printf("pin3: %d\n", readLinePin(LINESENSOR_THREE_PIN));
-    delay(1000);
-    }
-    return 0;
 }

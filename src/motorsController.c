@@ -1,7 +1,5 @@
-#include "./motorsController.h"
+#include "../headers/motorsController.h"
 
-
-int main(int argc, char** argv) {
 
 void motorsSet(void){
   int rc;
@@ -83,7 +81,7 @@ void runMotors(int time){
   MOTOR_ONE_S;
   MOTOR_TWO_S;
   MOTOR_THREE_S;
-  MOTOR_ONE_S;
+  MOTOR_FOUR_S;
 
   delay(1);
   MOTOR_ONE_B;
@@ -108,6 +106,4 @@ digitalWrite(MOTOR_THREE_ENABLER, LOW);
 digitalWrite(MOTOR_FOUR_CONTROL, LOW);
 digitalWrite(MOTOR_FOUR_CONTROL_TWO , LOW);
 digitalWrite(MOTOR_FOUR_ENABLER, LOW);
-}
-
 }
