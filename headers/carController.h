@@ -29,6 +29,6 @@ void setUp();
 void cleanUp();
 
 //set all four motors on the car to move in one direction
-bool movefoward(void);
+bool moveforward(void);
 
 #endif
