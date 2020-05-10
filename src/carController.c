@@ -14,7 +14,7 @@ void setUp() {
     speedSensorSet(void);
 } 
 
-bool moveforward(void) {
+bool moveforward() {
 
     double timeToCrash = 100; //in secs
     double safeTime = 2;      //in secs
@@ -101,5 +101,5 @@ int main(void) {
 
     bool x = moveforward();
 
-    printf("Finished.")
+    printf("Finished.");
 }
