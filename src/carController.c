@@ -1,17 +1,24 @@
-#include "carController.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <pthread.h>
+#include "echoSensorController.h"
+#include "speedSensorsController.h"
+#include "lineSensorsController.h"
+#include "motorsController.h"
 
 void cleanUp() {
-    echoSensorCleanUp(void);
-    lineSensorsCleanUp(void);
-    motorsCleanUp(void);
+    echoSensorCleanUp();
+    lineSensorsCleanUp();
+    motorsCleanUp();
 }
 
 
 void setUp() {
-    motorsSet(void);
-    lineSensorSetup(void);
-    echoSensorSet(void);
-    speedSensorSet(void);
+    motorsSet();
+    lineSensorSetup();
+    echoSensorSet();
+    speedSensorSet();
 } 
 
 bool moveforward() {
@@ -102,4 +109,6 @@ int main(void) {
     bool x = moveforward();
 
     printf("Finished.");
+    
+    return 0;
 }

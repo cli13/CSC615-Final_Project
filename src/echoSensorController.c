@@ -41,7 +41,7 @@ void *useEchoSensor(void *ptr) {
 }
 
 double readDistance(void) {
-    double distance;
+    double distance = 0;
     pthread_mutex_lock(&mu);
     distance = ECHO_DISTANCE;
     pthread_mutex_unlock(&mu);
