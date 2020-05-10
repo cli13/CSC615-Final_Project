@@ -65,6 +65,9 @@ void motorsSet(void);
 //Contributors:
 void motorMove(int enabler, int control, int control2, int direction);
 
+//Decreases gradualy the power of the motors until it reaches zero.
+void decreaseMotorPowerToZero(void);
+
 //takes the motor enabler pin # and the pin #'s of the controllers
 //and makes the motor stop.
 //Contributors:

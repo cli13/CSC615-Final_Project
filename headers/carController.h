@@ -21,11 +21,14 @@
 #include "lineSensorsController.h"
 #include "motorsController.h"
 
+//Sets up all the components.
+void setUp();
+
 //function responsible to clean everything properly when a ctrl + c signal is issued.
 //Contributors: Osbaldo Martinez
 void cleanUp();
 
 //set all four motors on the car to move in one direction
-void movefoward(void);
+bool movefoward(void);
 
 #endif

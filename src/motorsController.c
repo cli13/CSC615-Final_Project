@@ -2,26 +2,28 @@
 
 
 void motorsSet(void){
-  int rc;
-  if ((rc = wiringPiSetup()) == -1) {
-               perror("Fail to setup wiringPi\n");
-               exit(1);
-       }
-       pinMode(MOTOR_ONE_CONTROL, OUTPUT);
-       pinMode(MOTOR_ONE_CONTROL_TWO , OUTPUT);
-       pinMode(MOTOR_ONE_ENABLER, OUTPUT);
 
-       pinMode(MOTOR_TWO_CONTROL, OUTPUT);
-       pinMode(MOTOR_TWO_CONTROL_TWO , OUTPUT);
-       pinMode(MOTOR_ONE_ENABLER, OUTPUT);
+    int rc;
+    if ((rc = wiringPiSetup()) == -1) {
+            perror("Fail to setup wiringPi\n");
+            exit(1);
+    }
 
-       pinMode(MOTOR_THREE_CONTROL, OUTPUT);
-       pinMode(MOTOR_THREE_CONTROL_TWO , OUTPUT);
-       pinMode(MOTOR_THREE_ENABLER, OUTPUT);
+    pinMode(MOTOR_ONE_CONTROL, OUTPUT);
+    pinMode(MOTOR_ONE_CONTROL_TWO , OUTPUT);
+    pinMode(MOTOR_ONE_ENABLER, OUTPUT);
 
-       pinMode(MOTOR_FOUR_CONTROL, OUTPUT);
-       pinMode(MOTOR_FOUR_CONTROL_TWO , OUTPUT);
-       pinMode(MOTOR_FOUR_ENABLER, OUTPUT);
+    pinMode(MOTOR_TWO_CONTROL, OUTPUT);
+    pinMode(MOTOR_TWO_CONTROL_TWO , OUTPUT);
+    pinMode(MOTOR_ONE_ENABLER, OUTPUT);
+
+    pinMode(MOTOR_THREE_CONTROL, OUTPUT);
+    pinMode(MOTOR_THREE_CONTROL_TWO , OUTPUT);
+    pinMode(MOTOR_THREE_ENABLER, OUTPUT);
+
+    pinMode(MOTOR_FOUR_CONTROL, OUTPUT);
+    pinMode(MOTOR_FOUR_CONTROL_TWO , OUTPUT);
+    pinMode(MOTOR_FOUR_ENABLER, OUTPUT);
 
 
        if ((rc = softPwmCreate(MOTOR_ONE_ENABLER, MIN_INTENCITY, MAX_INTENCITY)) != 0) {
@@ -40,16 +42,34 @@ void motorsSet(void){
 }
 
 void motorMove(int enabler, int control, int control2, int direction){
-  digitalWrite(enabler, HIGH);
-        softPwmWrite(enabler, 100);
-        if (direction == FORWARD) {
-                digitalWrite(control2, LOW); // turn off the motorPin2
-                digitalWrite(control, HIGH); // turn on the motorPin1
-                return;
-        }
+    digitalWrite(enabler, HIGH);
+    softPwmWrite(enabler, 30);
+
+    if (direction == FORWARD) {
+        digitalWrite(control2, LOW); // turn off the motorPin2
+        digitalWrite(control, HIGH); // turn on the motorPin1
+                
+    } else if (direction == BACKWARD) {
 
         digitalWrite(control, LOW); // turn off the motorPin1
         digitalWrite(control2, HIGH); // turn on the motorPin2
+    }
+}
+
+void decreaseMotorPowerToZero(void) {
+    digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+    digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+    digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+    digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+    for (int i = 30; i > MIN_INTENCITY; i--) {
+        softPwmWrite(MOTOR_FOUR_ENABLER, i);
+        softPwmWrite(MOTOR_THREE_ENABLER, i);
+        softPwmWrite(MOTOR_TWO_ENABLER, i);
+        softPwmWrite(MOTOR_ONE_ENABLER, i);
+
+        delay(10);
+    }
 }
 
 void motorStop(int enabler, int control, int control2){
@@ -62,12 +82,40 @@ void motorStop(int enabler, int control, int control2){
 
 void *motorToControlForward(void *ptr){
 
+    int motor;
+    motor = *((int *) ptr);
+    
+    if (motor == 1) {
+        MOTOR_ONE_F;
+    } else if (motor == 2) {
+        MOTOR_TWO_F; 
+    } else if (motor == 3) {
+        MOTOR_THREE_F;
+    } else if (motor == 4) {
+        MOTOR_FOUR_F;
+    }
+
+    return NULL;
 
 }
 
 
 void *motorToControlBackward(void *ptr){
 
+    int motor;
+    motor = *((int *) ptr);
+
+    if (motor == 1) {
+        MOTOR_ONE_B;
+    } else if (motor == 2) {
+        MOTOR_TWO_B; 
+    } else if (motor == 3) {
+        MOTOR_THREE_B;
+    } else if (motor == 4) {
+        MOTOR_FOUR_B;
+    }
+
+    return NULL;
 
 }
 
@@ -91,19 +139,8 @@ void runMotors(int time){
 }
 
 void motorsCleanUp(void){
-digitalWrite(MOTOR_ONE_CONTROL, LOW);
-digitalWrite(MOTOR_ONE_CONTROL_TWO , LOW);
-digitalWrite(MOTOR_ONE_ENABLER, LOW);
-
-digitalWrite(MOTOR_TWO_CONTROL, LOW);
-digitalWrite(MOTOR_TWO_CONTROL_TWO , LOW);
-digitalWrite(MOTOR_ONE_ENABLER, LOW);
-
-digitalWrite(MOTOR_THREE_CONTROL, LOW);
-digitalWrite(MOTOR_THREE_CONTROL_TWO , LOW);
-digitalWrite(MOTOR_THREE_ENABLER, LOW);
-
-digitalWrite(MOTOR_FOUR_CONTROL, LOW);
-digitalWrite(MOTOR_FOUR_CONTROL_TWO , LOW);
-digitalWrite(MOTOR_FOUR_ENABLER, LOW);
+    MOTOR_ONE_S;
+    MOTOR_TWO_S;
+    MOTOR_THREE_S;
+    MOTOR_FOUR_S;
 }

@@ -31,7 +31,7 @@ void  echoSensorSet(void);
 //Takes a double variable that indicates the times in milliseconds
 //took the echo to come back.
 //Contributors:
-void calculateDistance(double time);
+double calculateDistance(double time);
 
 //This function prepares the trigger to send out the echo.
 //Contributors:
@@ -43,9 +43,12 @@ void  prepareTrigger(void);
 //Contributors:
 double getTime(void);
 
-//This function returns a double  with the distance.
+//This function uses the echo sensor to calculate distance.
 //Contributors:
-double getDistance(void);
+void *useEchoSensor(void *ptr);
+
+//Returns the distance in the ECHO_DISTANCE variable.
+double readDistance(void) {
 
 //This function displays the distance that was calculated by using the echo.
 //Contributors:

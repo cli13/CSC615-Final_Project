@@ -28,8 +28,8 @@
 #define SPEED_SENSOR_FOUR_PIN   1                       //pin 12(GPIO 18)
 
 #define TIME_TO_MEASURE         1.0                     //Time frame used to measure pulses.
-#define ARRAY_INIT_VAL          0                       //Initial value for array elements.
-#define WHEEL_DIAMETER          6                      //in centimeters.
+#define ARRAY_INIT_VAL          1.0                     //Initial value for array elements.
+#define WHEEL_DIAMETER          6.0                     //in centimeters.
 
 //It sets up the pins needed for the speed sensor. 
 //Contributors:
@@ -59,8 +59,7 @@ double readSpeed(int motor);
 //Contributors:
 void *useSpeedSensor(void *ptr);
 
-//This function sets all the pins off for the speed sensors.
-//Contributors:
-void speedSensorsCleanUp(void);
+//This function returns a double with the average speed of the motors.
+double averageSpeed(void);
 
 #endif
