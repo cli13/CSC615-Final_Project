@@ -101,12 +101,12 @@ bool moveforward() {
     return true;
 }
 
-int main(void) {
+int main() {
     signal(SIGINT, cleanUp);
 
     setUp();
 
-    bool x = moveforward();
+    moveforward();
 
     printf("Finished.");
     

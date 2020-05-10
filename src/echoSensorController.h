@@ -20,9 +20,7 @@
 
 #define ECHO_PIN               22       //pin 31(GPIO 6)
 #define TRIGGER_PIN            21       //pin 29(GPIO 5)
-#define SPEED_OF_SOUND         17150.0  //half of speed of sound in cm
-
-double distance;
+#define SPEED_OF_SOUND         34300.0  //half of speed of sound in cm
 
 //This function sets the pins being used by the echo sensor.
 //Contributors:
@@ -48,7 +46,7 @@ double getTime(void);
 void *useEchoSensor(void *ptr);
 
 //Returns the distance in the ECHO_DISTANCE variable.
-double readDistance(void) {
+double readDistance(void);
 
 //This function displays the distance that was calculated by using the echo.
 //Contributors:

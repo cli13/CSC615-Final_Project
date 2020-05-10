@@ -2,7 +2,7 @@
 # Project: <Final Project>
 # File: makefile
 CC=gcc
-CFLAGS= -g -Wall -I.
+CFLAGS= -g -I.
 DEPS = motorsController.h speedSensorsController.h lineSensorsController.h echoSensorController.h
 OBJ = carController.o motorsController.o speedSensorsController.o lineSensorsController.o echoSensorController.o
 

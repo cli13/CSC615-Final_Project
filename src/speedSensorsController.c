@@ -94,7 +94,7 @@ double averageSpeed(void) {
     for(int i = 0; i < NUMBER_OF_MOTORS; i++) {
         total += MOTORS_SPEED[i];
     }
-    pthread_mutex_unlock(&m)
+    pthread_mutex_unlock(&m);
 
     return total / NUMBER_OF_MOTORS;
 

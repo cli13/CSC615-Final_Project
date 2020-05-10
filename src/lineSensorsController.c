@@ -12,7 +12,7 @@ void lineSensorsCleanUp(void) {
 	
 }
 
-void lineSensorsSetup(void) {
+void lineSensorSetup(void) {
 	int rc;
 
 	if ((rc = wiringPiSetup()) == -1) {
