@@ -1,4 +1,4 @@
-#include "../headers/echoSensorController.h"
+#include "echoSensorController.h"
 
 double ECHO_DISTANCE = 0;
 pthread_mutex_t mu = PTHREAD_MUTEX_INITIALIZER;

@@ -1,4 +1,4 @@
-#include "../headers/lineSensorsController.h"
+#include "lineSensorsController.h"
 
 int readLinePin(int readPin){
     return digitalRead(readPin);

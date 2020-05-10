@@ -1,4 +1,4 @@
-#include "../headers/carController.h"
+#include "carController.h"
 
 void cleanUp() {
     echoSensorCleanUp(void);
@@ -22,14 +22,15 @@ bool moveforward(void) {
     double speed = 1;
     pthread_t t1, t2, t3, t4, t5, t6, t7, t8, t9;
     int s1, s2, s3, s4, s5, s6, s7, s8, s9, motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
+    int sen1 = SPEED_SENSOR_ONE_PIN, sen2 = SPEED_SENSOR_TWO_PIN, sen3 = SPEED_SENSOR_THREE_PIN, sen4 = SPEED_SENSOR_FOUR_PIN;
     void *m1 = &motor1;
     void *m2 = &motor2;
     void *m3 = &motor3;
     void *m4 = &motor4;
-    void *sp1 = &SPEED_SENSOR_ONE_PIN;
-    void *sp2 = &SPEED_SENSOR_TWO_PIN;
-    void *sp3 = &SPEED_SENSOR_THREE_PIN;
-    void *sp4 = &SPEED_SENSOR_FOUR_PIN;
+    void *sp1 = &sen1;
+    void *sp2 = &sen2;
+    void *sp3 = &sen3;
+    void *sp4 = &sen4;
 
     printf("initialize motors\n");
     if ((s1 = pthread_create(&t1, NULL, motorToControlForward, m1))) {
