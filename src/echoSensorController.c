@@ -34,17 +34,17 @@ double getTime(void){
 }
 
 void *useEchoSensor(void *ptr) {
-    pritntf("Using echo sensor\n");
+    printf("Using echo sensor\n");
     while(1) {
         prepareTrigger();
-        printf("Echo distance: %f\n", calculateDistance(getTime()););
+        printf("Echo distance: %f\n", calculateDistance(getTime()));
     }
 }
 
 double readDistance(void) {
     double distance;
     prepareTrigger();
-    distance = calculateDistance(getTime());;
+    distance = calculateDistance(getTime());
     return distance;
 }
 

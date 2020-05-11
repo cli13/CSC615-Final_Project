@@ -31,6 +31,10 @@ void moveforward() {
 
     pthread_t t1, t2, t3, t4;
     int s1, s2, s3, s4, motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
+    void *m1 = &motor1;
+    void *m2 = &motor2;
+    void *m3 = &motor3;
+    void *m4 = &motor4;
 
     printf("initialize motors\n");
     if ((s1 = pthread_create(&t1, NULL, motorToControlForward, m1))) {
@@ -55,9 +59,12 @@ void moveforward() {
     while (timeToCrash > safeTime) {
         distance = readDistance();
         speed = averageSpeed();
+        
         if (speed > 0 ) {
             timeToCrash = distance / speed;
         }
+        printf("Distance: %f\tSpeed: %f\n", distance, speed);
+        printf("time to crash: %f\n", timeToCrash);
     }
 
     decreaseMotorPowerToZero();
