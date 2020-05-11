@@ -68,20 +68,27 @@ int readPulses(double time, int pin) {
 void *useSpeedSensor(void *ptr) {
     int pin;
     pin = *((int *) ptr);
+    double aSpeed;
+    double speed;
 
-    double aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, pin), TIME_TO_MEASURE);
-    double speed = calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
+    while(1) {
+        
+        aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, pin), TIME_TO_MEASURE);
+        speed = calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
 
-    printf("The angular speed is: %f rad/s\n", aSpeed);
-    printf("The linear speed is: %f m/s\n", speed);
-    if (pin == SPEED_SENSOR_ONE_PIN) {
-        writeSpeed(0, speed);
-    } else if(pin == SPEED_SENSOR_TWO_PIN) {
-        writeSpeed(1, speed);
-    } else if(pin == SPEED_SENSOR_THREE_PIN) {
-        writeSpeed(2, speed);
-    } else if (pin == SPEED_SENSOR_FOUR_PIN) {
-        writeSpeed(3, speed);
+        printf("The angular speed is: %f rad/s\n", aSpeed);
+        printf("The linear speed is: %f m/s\n", speed);
+
+        if (pin == SPEED_SENSOR_ONE_PIN) {
+            writeSpeed(0, speed);
+        } else if(pin == SPEED_SENSOR_TWO_PIN) {
+            writeSpeed(1, speed);
+        } else if(pin == SPEED_SENSOR_THREE_PIN) {
+            writeSpeed(2, speed);
+        } else if (pin == SPEED_SENSOR_FOUR_PIN) {
+            writeSpeed(3, speed);
+        }
+
     }
     return NULL;
 }

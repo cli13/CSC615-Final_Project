@@ -21,14 +21,10 @@ void setUp() {
     speedSensorSet();
 } 
 
-bool moveforward() {
+void moveforward() {
 
-    double timeToCrash = 100; //in secs
-    double safeTime = 2;      //in secs
-    double distance = 100;
-    double speed = 1;
-    pthread_t t1, t2, t3, t4, t5, t6, t7, t8, t9;
-    int s1, s2, s3, s4, s5, s6, s7, s8, s9, motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
+    pthread_t t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
+    int s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
     int sen1 = SPEED_SENSOR_ONE_PIN, sen2 = SPEED_SENSOR_TWO_PIN, sen3 = SPEED_SENSOR_THREE_PIN, sen4 = SPEED_SENSOR_FOUR_PIN;
     void *m1 = &motor1;
     void *m2 = &motor2;
@@ -53,52 +49,62 @@ bool moveforward() {
         printf("thread creation failed: %i\n", s4);
     }
 
+
+    if ((s5 = pthread_create(&t5, NULL, useSpeedSensor, sp1))) {
+        printf("thread creation failed: %i\n", s5);
+    }
+    if ((s6 = pthread_create(&t6, NULL, useSpeedSensor, sp2))) {
+        printf("thread creation failed: %i\n", s6);
+    }
+    if ((s7 = pthread_create(&t7, NULL, useSpeedSensor, sp3))) {
+        printf("thread creation failed: %i\n", s7);
+    }
+    if ((s8 = pthread_create(&t8, NULL, useSpeedSensor, sp4))) {
+        printf("thread creation failed: %i\n", s8);
+
+    if ((s9 = pthread_create(&t9, NULL, useEchoSensor, NULL))) {
+        printf("thread creation failed: %i\n", s9);
+    }
+    } if ((s10 = pthread_create(&t10, NULL, calculateTimeToCrash, NULL))) {
+        printf("thread creation failed: %i\n", s10);
+    }
+
     printf("join motor threads.\n");
     pthread_join( t1, NULL);
     pthread_join( t2, NULL);
     pthread_join( t3, NULL);
     pthread_join( t4, NULL);
+    pthread_join( t5, NULL);
+    pthread_join( t6, NULL);
+    pthread_join( t7, NULL);
+    pthread_join( t8, NULL);
+    pthread_join( t9, NULL);
+    
+    //return true;
+}
 
-    while (timeToCrash > safeTime) {
+void *calculateTimeToCrash(void *ptr) {
+    double timeToCrash = 100; //in secs
+    double safeTime = 2;      //in secs
+    double distance = 100;
+    double speed = 1;
 
-        if ((s9 = pthread_create(&t9, NULL, useEchoSensor, NULL))) {
-            printf("thread creation failed: %i\n", s9);
-        }
-
-        if ((s5 = pthread_create(&t5, NULL, useSpeedSensor, sp1))) {
-            printf("thread creation failed: %i\n", s5);
-        }
-        if ((s6 = pthread_create(&t6, NULL, useSpeedSensor, sp2))) {
-            printf("thread creation failed: %i\n", s6);
-        }
-        if ((s7 = pthread_create(&t7, NULL, useSpeedSensor, sp3))) {
-            printf("thread creation failed: %i\n", s7);
-        }
-        if ((s8 = pthread_create(&t8, NULL, useSpeedSensor, sp4))) {
-            printf("thread creation failed: %i\n", s8);
-        }
-
-        pthread_join( t5, NULL);
-        pthread_join( t6, NULL);
-        pthread_join( t7, NULL);
-        pthread_join( t8, NULL);
-        pthread_join( t9, NULL);
-
+    while(timeToCrash > safeTime) {
         distance = readDistance();
         speed = averageSpeed();
 
         timeToCrash = distance / speed;
-
     }
 
+    bool x = true;
     decreaseMotorPowerToZero();
+    cleanUp();
 
-    MOTOR_FOUR_S;
-    MOTOR_THREE_S;
-    MOTOR_TWO_S;
-    MOTOR_ONE_S;
-    
-    return true;
+    if(x) {
+        exit(0);
+    }
+
+    return NULL;
 }
 
 int main() {

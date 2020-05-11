@@ -35,9 +35,11 @@ double getTime(void){
 }
 
 void *useEchoSensor(void *ptr) {
-    pthread_mutex_lock( &mu );
-    ECHO_DISTANCE = calculateDistance(getTime());
-    pthread_mutex_unlock( &mu );
+    while(1) {
+        pthread_mutex_lock( &mu );
+        ECHO_DISTANCE = calculateDistance(getTime());
+        pthread_mutex_unlock( &mu );
+    }
 }
 
 double readDistance(void) {
