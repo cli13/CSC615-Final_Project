@@ -21,6 +21,30 @@ void setUp() {
     speedSensorSet();
 } 
 
+void *calculateTimeToCrash(void *ptr) {
+    double timeToCrash = 100; //in secs
+    double safeTime = 2;      //in secs
+    double distance = 100;
+    double speed = 1;
+
+    while(timeToCrash > safeTime) {
+        distance = readDistance();
+        speed = averageSpeed();
+
+        timeToCrash = distance / speed;
+    }
+
+    bool x = true;
+    decreaseMotorPowerToZero();
+    cleanUp();
+
+    if(x) {
+        exit(0);
+    }
+
+    return NULL;
+}
+
 void moveforward() {
 
     pthread_t t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
@@ -81,30 +105,6 @@ void moveforward() {
     pthread_join( t9, NULL);
     
     //return true;
-}
-
-void *calculateTimeToCrash(void *ptr) {
-    double timeToCrash = 100; //in secs
-    double safeTime = 2;      //in secs
-    double distance = 100;
-    double speed = 1;
-
-    while(timeToCrash > safeTime) {
-        distance = readDistance();
-        speed = averageSpeed();
-
-        timeToCrash = distance / speed;
-    }
-
-    bool x = true;
-    decreaseMotorPowerToZero();
-    cleanUp();
-
-    if(x) {
-        exit(0);
-    }
-
-    return NULL;
 }
 
 int main() {
