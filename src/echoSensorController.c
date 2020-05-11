@@ -1,6 +1,5 @@
 #include "echoSensorController.h"
 
-double ECHO_DISTANCE;
 pthread_mutex_t mu = PTHREAD_MUTEX_INITIALIZER;
 
 void echoSensorSet(void){
@@ -18,7 +17,7 @@ double calculateDistance(double time){
 
 void prepareTrigger(void){
     digitalWrite(TRIGGER_PIN, HIGH);
-    delay(1);
+    delay(100);
     digitalWrite(TRIGGER_PIN, LOW);
 }
 
@@ -35,23 +34,23 @@ double getTime(void){
 }
 
 void *useEchoSensor(void *ptr) {
+    pritntf("Using echo sensor\n");
     while(1) {
-        pthread_mutex_lock( &mu );
-        ECHO_DISTANCE = calculateDistance(getTime());
-        pthread_mutex_unlock( &mu );
+        prepareTrigger();
+        printf("Echo distance: %f\n", calculateDistance(getTime()););
     }
 }
 
 double readDistance(void) {
-    double distance = 0;
-    pthread_mutex_lock(&mu);
-    distance = ECHO_DISTANCE;
-    pthread_mutex_unlock(&mu);
+    double distance;
+    prepareTrigger();
+    distance = calculateDistance(getTime());;
     return distance;
 }
 
 void displayDistance(void){
-    printf("Distance: %.2f cm\n", ECHO_DISTANCE);
+    prepareTrigger();
+    printf("Distance: %.2f cm\n", calculateDistance(getTime()));
 }
 
 void echoSensorCleanUp(void){

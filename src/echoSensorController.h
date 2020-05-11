@@ -20,7 +20,7 @@
 
 #define ECHO_PIN               22       //pin 31(GPIO 6)
 #define TRIGGER_PIN            21       //pin 29(GPIO 5)
-#define SPEED_OF_SOUND         34300.0  //half of speed of sound in cm
+#define SPEED_OF_SOUND         34300.0  //speed of sound in cm
 
 //This function sets the pins being used by the echo sensor.
 //Contributors:

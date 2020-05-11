@@ -3,8 +3,8 @@
 //This array contains the speed of each motor.
 //Motor 1 at index 0, Motor 2 at index 1 and so on.
 //*** Specify if you are measuring in cm/s or rad/s***
-double MOTORS_SPEED[NUMBER_OF_MOTORS]={ARRAY_INIT_VAL};
 
+double MOTORS_SPEED[NUMBER_OF_MOTORS] = {ARRAY_INIT_VAL};
 //this mutex is to help maintain order when having code in critical sections.
 pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 
@@ -95,13 +95,19 @@ void *useSpeedSensor(void *ptr) {
 
 double averageSpeed(void) {
 
-    double total;
-    pthread_mutex_lock(&m);
-    total = 0;
-    for(int i = 0; i < NUMBER_OF_MOTORS; i++) {
-        total += MOTORS_SPEED[i];
-    }
-    pthread_mutex_unlock(&m);
+    double total = 0;
+
+    double aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_ONE_PIN), TIME_TO_MEASURE);
+    total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
+
+    aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_TWO_PIN), TIME_TO_MEASURE);
+    total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
+
+    aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_THREE_PIN), TIME_TO_MEASURE);
+    total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
+
+    //aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_FOUR_PIN), TIME_TO_MEASURE);
+    //total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
 
     return total / NUMBER_OF_MOTORS;
 
