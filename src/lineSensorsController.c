@@ -6,9 +6,9 @@ int readLinePin(int readPin){
 
 void lineSensorsCleanUp(void) {
 	
-	digitalWrite(LINESENSOR_ONE_PIN, LOW);
-	digitalWrite(LINESENSOR_TWO_PIN, LOW);
-    digitalWrite(LINESENSOR_THREE_PIN, LOW);
+	digitalWrite(TRACKSENSOR_ONE_PIN, LOW);
+	digitalWrite(TRACKSENSOR_TWO_PIN, LOW);
+    digitalWrite(LINESENSOR_ONE_PIN, LOW);
 	
 }
 
@@ -21,8 +21,8 @@ void lineSensorSetup(void) {
 	}
 
 	pinMode(LINESENSOR_ONE_PIN, INPUT);
-	pinMode(LINESENSOR_TWO_PIN, INPUT);
-    pinMode(LINESENSOR_THREE_PIN, INPUT);
+	pinMode(TRACKSENSOR_ONE_PIN, INPUT);
+    pinMode(TRACKSENSOR_TWO_PIN, INPUT);
 }
 
 bool isOnLine(int sensorPin) {
@@ -32,7 +32,7 @@ bool isOnLine(int sensorPin) {
 }
 
 bool isObjectInFront(void) {
-    return digitalRead(LINESENSOR_ONE_PIN) || digitalRead(LINESENSOR_THREE_PIN)
+    return digitalRead(TRACKSENSOR_ONE_PIN) || digitalRead(TRACKSENSOR_TWO_PIN);
 }
 
 /*
