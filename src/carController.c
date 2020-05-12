@@ -41,16 +41,16 @@ void moveforward() {
 
     printf("initialize motors\n");
     if ((s1 = pthread_create(&t1, NULL, motorToControlForward, m1))) {
-        printf("thread creation failed: %i\n", s1);
+        printf("thread creation failed: %d\n", s1);
     }
     if ((s2 = pthread_create(&t2, NULL, motorToControlForward, m2))) {
-        printf("thread creation failed: %i\n", s2);
+        printf("thread creation failed: %d\n", s2);
     }
     if ((s3 = pthread_create(&t3, NULL, motorToControlForward, m3))) {
-        printf("thread creation failed: %i\n", s3);
+        printf("thread creation failed: %d\n", s3);
     }
     if ((s4 = pthread_create(&t4, NULL, motorToControlForward, m4))) {
-        printf("thread creation failed: %i\n", s4);
+        printf("thread creation failed: %d\n", s4);
     }
 
     printf("join motor threads.\n");
@@ -72,9 +72,9 @@ void moveforward() {
         pthread_join(t6, NULL);
         
         distance = readDistance();
-        speed = averageSpeed();
+        speed    = averageSpeed();
         
-        if (speed > 0 ) {
+        if (speed > 0) {
             timeToCrash = distance / speed;
         }
         
@@ -92,7 +92,7 @@ int main() {
 
     setUp();
 
-   moveforward();
+    moveforward();
     
     printf("Finished.");
     
