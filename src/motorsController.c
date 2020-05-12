@@ -43,7 +43,7 @@ void motorsSet(void){
 
 void motorMove(int enabler, int control, int control2, int direction){
     digitalWrite(enabler, HIGH);
-    softPwmWrite(enabler, 23);
+    softPwmWrite(enabler, 25);
 
     if (direction) {
         digitalWrite(control2, LOW); // turn off the motorPin2
@@ -62,13 +62,11 @@ void decreaseMotorPowerToZero(void) {
     digitalWrite(MOTOR_TWO_ENABLER, HIGH);
     digitalWrite(MOTOR_ONE_ENABLER, HIGH);
 
-    for (int i = 30; i > MIN_INTENCITY; i--) {
+    for (int i = 20; i > MIN_INTENCITY; i -= 10) {
         softPwmWrite(MOTOR_FOUR_ENABLER, i);
         softPwmWrite(MOTOR_THREE_ENABLER, i);
         softPwmWrite(MOTOR_TWO_ENABLER, i);
         softPwmWrite(MOTOR_ONE_ENABLER, i);
-
-        delay(10);
     }
 }
 

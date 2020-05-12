@@ -19,7 +19,7 @@
 #include <wiringPi.h>
 
 #define PI                      3.14159265358979323846  //the value of pi
-#define NUMBER_OF_MOTORS        3                       //This defines the number of motors being analized by speed encored.
+#define NUMBER_OF_MOTORS        2                       //This defines the number of motors being analized by speed encored.
 #define PULSES_PER_ROTATION     20                      //The number of holes in the wheel encoder. The speed sensor reads each hole as a pulse.
 
 #define SPEED_SENSOR_ONE_PIN    27                      //pin 36(GPIO 16)

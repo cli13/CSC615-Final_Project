@@ -25,16 +25,19 @@ void setUp() {
 void moveforward() {
 
     double timeToCrash = 100;   //in secs
-    double safeTime = 1.2;      //in secs
+    double safeTime = 2.5;      //in secs
     double distance = 100;
     double speed = 1;
 
-    pthread_t t1, t2, t3, t4;
+    pthread_t t1, t2, t3, t4, t5, t6;
     int s1, s2, s3, s4, motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
     void *m1 = &motor1;
     void *m2 = &motor2;
     void *m3 = &motor3;
     void *m4 = &motor4;
+    int sp1 = SPEED_SENSOR_THREE_PIN, sp2 = SPEED_SENSOR_ONE_PIN, s5, s6;
+    void *sd1 = &sp1;
+    void *sd2 = &sp2;
 
     printf("initialize motors\n");
     if ((s1 = pthread_create(&t1, NULL, motorToControlForward, m1))) {
@@ -56,21 +59,35 @@ void moveforward() {
     pthread_join( t3, NULL);
     pthread_join( t4, NULL);
     
-    while (timeToCrash > safeTime) {
+    while (timeToCrash > safeTime && !isObjectInFront()) {
+        
+        if ((s5 = pthread_create(&t5, NULL, useSpeedSensor, sd1))) {
+            printf("thread creation failed: %i\n", s5);
+        }
+        if ((s6 = pthread_create(&t6, NULL, useSpeedSensor, sd2))) {
+            printf("thread creation failed: %i\n", s6);
+        }
+        
+        pthread_join(t5, NULL);
+        pthread_join(t6, NULL);
+        
         distance = readDistance();
         speed    = averageSpeed();
         
         if (speed > 0) {
             timeToCrash = distance / speed;
         }
+        
         printf("Distance: %f\tSpeed: %f\n", distance, speed);
         printf("time to crash: %f\n", timeToCrash);
 	if(isObjectInFront()) {
-	   printf("Object in front.");
+	    printf("Object In Front\n");
 	}
+	
     }
 
     decreaseMotorPowerToZero();
+    printf("Distance to object: %f\n", readDistance());
     cleanUp();
     
 }
