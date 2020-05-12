@@ -47,7 +47,7 @@ double calculateLinearSpeed(double diameter, double angularSpeed) {
 int readPulses(double time, int pin) {
     int count = 0;
     double start = millis();
-    double end = start + (1000 * time);
+    double end = start + (250 * time);
 
     printf("start: %f, end: %f\n", start, end);
 

@@ -56,7 +56,7 @@ void moveforward() {
     pthread_join( t3, NULL);
     pthread_join( t4, NULL);
     
-    while (timeToCrash > safeTime || isObjectInFront()) {
+    while (timeToCrash > safeTime) {
         distance = readDistance();
         speed = averageSpeed();
         
@@ -65,6 +65,9 @@ void moveforward() {
         }
         printf("Distance: %f\tSpeed: %f\n", distance, speed);
         printf("time to crash: %f\n", timeToCrash);
+	if(isObjectInFront()) {
+	   printf("Object in front.");
+	}
     }
 
     decreaseMotorPowerToZero();
