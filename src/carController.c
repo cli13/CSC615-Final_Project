@@ -56,7 +56,7 @@ void moveforward() {
     pthread_join( t3, NULL);
     pthread_join( t4, NULL);
     
-    while (timeToCrash > safeTime) {
+    while (timeToCrash > safeTime || isObjectInFront()) {
         distance = readDistance();
         speed = averageSpeed();
         
@@ -77,14 +77,8 @@ int main() {
 
     setUp();
 
-   // moveforward();
-    while(1) {
-        if (isObjectInFront()) {
-            printf("Object in front.\n");
-        } else {
-            printf("No object.\n");
-        }
-    }
+   moveforward();
+    
     printf("Finished.");
     
     return 0;
