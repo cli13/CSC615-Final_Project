@@ -41,13 +41,13 @@ double calculateAngularSpeed(int totalPulses, double time) {
 }
 
 double calculateLinearSpeed(double diameter, double angularSpeed) {
-    return ((diameter / 2) / 100) * angularSpeed;
+    return (diameter / 2) * angularSpeed;
 }
 
 int readPulses(double time, int pin) {
     int count = 0;
     double start = millis();
-    double end = start + (1000 * time);
+    double end = start + (500 * time);
 
     printf("start: %f, end: %f\n", start, end);
 
@@ -70,26 +70,24 @@ void *useSpeedSensor(void *ptr) {
     pin = *((int *) ptr);
     double aSpeed;
     double speed;
-
-    while(1) {
         
-        aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, pin), TIME_TO_MEASURE);
-        speed = calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
+    aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, pin), TIME_TO_MEASURE);
+    speed = calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
 
-        printf("The angular speed is: %f rad/s\n", aSpeed);
-        printf("The linear speed is: %f m/s\n", speed);
+    printf("The angular speed is: %f rad/s\n", aSpeed);
+    printf("The linear speed is: %f m/s\n", speed);
 
-        if (pin == SPEED_SENSOR_ONE_PIN) {
-            writeSpeed(0, speed);
-        } else if(pin == SPEED_SENSOR_TWO_PIN) {
-            writeSpeed(1, speed);
-        } else if(pin == SPEED_SENSOR_THREE_PIN) {
-            writeSpeed(2, speed);
-        } else if (pin == SPEED_SENSOR_FOUR_PIN) {
-            writeSpeed(3, speed);
-        }
-
+    if (pin == SPEED_SENSOR_ONE_PIN) {
+        writeSpeed(0, speed);
+    } else if(pin == SPEED_SENSOR_TWO_PIN) {
+        writeSpeed(1, speed);
+    } else if(pin == SPEED_SENSOR_THREE_PIN) {
+        writeSpeed(2, speed);
+    } else if (pin == SPEED_SENSOR_FOUR_PIN) {
+        writeSpeed(3, speed);
     }
+
+    
     return NULL;
 }
 
@@ -97,17 +95,7 @@ double averageSpeed(void) {
 
     double total = 0;
 
-    double aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_ONE_PIN), TIME_TO_MEASURE);
-    total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
-
-    aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_TWO_PIN), TIME_TO_MEASURE);
-    total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
-
-    aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_THREE_PIN), TIME_TO_MEASURE);
-    total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
-
-    //aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, SPEED_SENSOR_FOUR_PIN), TIME_TO_MEASURE);
-    //total += calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
+    total = MOTORS_SPEED[0] + MOTORS_SPEED[2]
 
     return total / NUMBER_OF_MOTORS;
 
