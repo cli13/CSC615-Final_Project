@@ -31,6 +31,10 @@ bool isOnLine(int sensorPin) {
 
 }
 
+bool isObjectInFront(void) {
+    return digitalRead(LINESENSOR_ONE_PIN) || digitalRead(LINESENSOR_THREE_PIN)
+}
+
 /*
 // ************** Test code ********************
 #define LED_PIN 4 // PIN 16, GPIO23

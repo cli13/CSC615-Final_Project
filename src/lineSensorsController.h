@@ -40,4 +40,6 @@ int readLinePin(int readPin);
 //return true when the linesensor detect a line, return false otherwise
 bool isOnLine(int);
 
+bool isObjectInFront(void);
+
 #endif
