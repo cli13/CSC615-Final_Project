@@ -77,12 +77,12 @@ int main() {
 
     setUp();
 
-    //moveforward();
+   // moveforward();
     while(1) {
         if (isObjectInFront()) {
-            printf("Object in front.");
+            printf("Object in front.\n");
         } else {
-            printf("No object");
+            printf("No object.\n");
         }
     }
     printf("Finished.");
