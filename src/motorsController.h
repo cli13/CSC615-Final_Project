@@ -38,8 +38,8 @@
 #define MOTOR_FOUR_CONTROL       10 //pin 24(GPIO 8)
 #define MOTOR_FOUR_CONTROL_TWO   11 //pin 26(GPIO 7)
 
-#define FORWARD                  1  
-#define BACKWARD                 0
+#define FORWARD                  0  
+#define BACKWARD                 1
 
 #define MOTOR_ONE_F              motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, FORWARD) //makes motor one go forward.
 #define MOTOR_TWO_F              motorMove(MOTOR_TWO_ENABLER, MOTOR_TWO_CONTROL, MOTOR_TWO_CONTROL_TWO, FORWARD) //makes motor two go forward.
