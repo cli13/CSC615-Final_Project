@@ -77,7 +77,7 @@ int main() {
 
     setUp();
 
-   moveforward();
+    moveforward();
     
     printf("Finished.");
     
