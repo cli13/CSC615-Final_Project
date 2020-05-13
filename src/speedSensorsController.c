@@ -98,6 +98,7 @@ double averageSpeed(void) {
     total = MOTORS_SPEED[0] + MOTORS_SPEED[2];
 
     printf("Total speed added: %f\n", total);
+    
     return total / NUMBER_OF_MOTORS;
 
 }
