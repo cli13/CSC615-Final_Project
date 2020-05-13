@@ -39,14 +39,9 @@ void *calculateCrashTime(void *ptr) {
         if (speed > 0) {
             TIME_TO_CRASH = distance / speed;
         }
-        
-        printf("Distance: %f\tSpeed: %f\n", distance, speed);
-        printf("time to crash: %f\n", TIME_TO_CRASH);
     }
 
     decreaseMotorPowerToZero();
-
-    printf("Distance to object: %f\n", readDistance());
 
     cleanUp();
 }
@@ -55,7 +50,6 @@ void *objectInFront(void *ptr) {
 
     while (!isObjectInFront()){}
     decreaseMotorPowerToZero();
-    printf("Distance to object: %f\n", readDistance());
     cleanUp();
 
 }
@@ -118,7 +112,6 @@ int main() {
 
     moveforward();
     
-    printf("Finished.");
     cleanUp();
     
     return 0;

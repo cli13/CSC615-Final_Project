@@ -17,7 +17,7 @@ double calculateDistance(double time){
 
 void prepareTrigger(void){
     digitalWrite(TRIGGER_PIN, HIGH);
-    delay(100);
+    delay(10);
     digitalWrite(TRIGGER_PIN, LOW);
 }
 
@@ -29,7 +29,6 @@ double getTime(void){
     while(digitalRead(ECHO_PIN) == 1){}
     end = clock();
     delta = (double) (end - start) / CLOCKS_PER_SEC;
-    printf("delta: %f\n", delta);
     return delta;
 }
 
