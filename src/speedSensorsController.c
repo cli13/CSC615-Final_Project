@@ -28,9 +28,9 @@ double readSpeed(int motor) {
     
     double speed;
     
-    pthread_mutex_lock( &m );
+    
     speed = MOTORS_SPEED[motor];
-    pthread_mutex_unlock( &m );
+    
     
     return speed;
 
@@ -97,7 +97,7 @@ double averageSpeed(void) {
 
     double total = 0;
 
-    total = MOTORS_SPEED[0] + MOTORS_SPEED[2];
+    total = readSpeed(0) + readSpeed(2);
 
     printf("Total speed added: %f\n", total);
 

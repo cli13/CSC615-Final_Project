@@ -8,7 +8,7 @@
 #include "motorsController.h"
 
 double TIME_TO_CRASH = 100;   //in secs
-double SAFE_TIME = 2.5;      //in secs
+double SAFE_TIME = 2.7;      //in secs
 
 void cleanUp() {
     echoSensorCleanUp();
@@ -108,8 +108,7 @@ void moveforward() {
         printf("thread creation failed: %i\n", s8);
     }
 
-    while(1) {}
-    
+   while(1) {} 
 }
 
 int main() {
@@ -120,6 +119,7 @@ int main() {
     moveforward();
     
     printf("Finished.");
+    cleanUp();
     
     return 0;
 }
