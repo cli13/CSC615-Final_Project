@@ -36,19 +36,19 @@
 
 #define MOTOR_FOUR_ENABLER       26 //pin 32(GPIO 12)
 #define MOTOR_FOUR_CONTROL       10 //pin 24(GPIO 8)
-#define MOTOR_FOUR_CONTROL       11 //pin 26(GPIO 7)
+#define MOTOR_FOUR_CONTROL_TWO   11 //pin 26(GPIO 7)
 
 #define FORWARD                  0  
 #define BACKWARD                 1
 
 #define MOTOR_ONE_F              motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, FORWARD) //makes motor one go forward.
 #define MOTOR_TWO_F              motorMove(MOTOR_TWO_ENABLER, MOTOR_TWO_CONTROL, MOTOR_TWO_CONTROL_TWO, FORWARD) //makes motor two go forward.
-#define MOTOR_THREE_F            motorMove(MOTOR_THREE_ENABLER, MOTOR_THREE_CONTROL, MOTOR_THREE_CONTROL_TWO, FORWARD) //makes motor three go forward.
+#define MOTOR_THREE_F            motorMove(MOTOR_THREE_ENABLER, MOTOR_THREE_CONTROL, MOTOR_THREE_CONTROL_TWO, BACKWARD) //makes motor three go forward. //Motor 3 was assembled backwards
 #define MOTOR_FOUR_F             motorMove(MOTOR_FOUR_ENABLER, MOTOR_FOUR_CONTROL, MOTOR_FOUR_CONTROL_TWO, FORWARD) //makes motor four go forward.
 
 #define MOTOR_ONE_B              motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, BACKWARD) //makes motor one go backward.
 #define MOTOR_TWO_B              motorMove(MOTOR_TWO_ENABLER, MOTOR_TWO_CONTROL, MOTOR_TWO_CONTROL_TWO, BACKWARD) //makes motor two go backward.
-#define MOTOR_THREE_B            motorMove(MOTOR_THREE_ENABLER, MOTOR_THREE_CONTROL, MOTOR_THREE_CONTROL_TWO, BACKWARD) //makes motor three go backward.
+#define MOTOR_THREE_B            motorMove(MOTOR_THREE_ENABLER, MOTOR_THREE_CONTROL, MOTOR_THREE_CONTROL_TWO, FORWARD) //makes motor three go backward. //Motor 3 was assembled backwards
 #define MOTOR_FOUR_B             motorMove(MOTOR_FOUR_ENABLER, MOTOR_FOUR_CONTROL, MOTOR_FOUR_CONTROL_TWO, BACKWARD) //makes motor four go backward.
 
 #define MOTOR_ONE_S              motorStop(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO) //makes motor one stop.
@@ -64,6 +64,9 @@ void motorsSet(void);
 //and makes the motor move to that direction.
 //Contributors:
 void motorMove(int enabler, int control, int control2, int direction);
+
+//Decreases gradualy the power of the motors until it reaches zero.
+void decreaseMotorPowerToZero(void);
 
 //takes the motor enabler pin # and the pin #'s of the controllers
 //and makes the motor stop.

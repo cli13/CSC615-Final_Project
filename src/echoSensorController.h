@@ -18,32 +18,35 @@
 #include <pthread.h>
 #include <wiringPi.h>
 
-#define ECHO_PIN               22       //GPIO 6 (pin 31)
-#define TRIGGER_PIN            21       //GPIO 5 (pin 29)
-#define SPEED_OF_SOUND         34300.0  //in centimeters per second
+#define ECHO_PIN               22       //pin 31(GPIO 6)
+#define TRIGGER_PIN            21       //pin 29(GPIO 5)
+#define SPEED_OF_SOUND         34300.0  //speed of sound in cm
 
 //This function sets the pins being used by the echo sensor.
 //Contributors:
 void  echoSensorSet(void);
 
-//Takes a float variable that indicates the time it
+//Takes a double variable that indicates the times in milliseconds
 //took the echo to come back.
-//It returns a float with distance measured by the the echo.
 //Contributors:
-float calculateDistance(float time);
+double calculateDistance(double time);
 
 //This function prepares the trigger to send out the echo.
 //Contributors:
 void  prepareTrigger(void);
 
-//This function returns the time as a float it took for the echo to
-//come back.
+//This function returns the time in seconds it took for the echo to
+//come back. Using time.h's clock() function 
+//This return time in milliseconds 
 //Contributors:
-float getTime(void);
+double getTime(void);
 
-//This function returns a float with the distance.
+//This function uses the echo sensor to calculate distance.
 //Contributors:
-float getDistance(void);
+void *useEchoSensor(void *ptr);
+
+//Returns the distance in the ECHO_DISTANCE variable.
+double readDistance(void);
 
 //This function displays the distance that was calculated by using the echo.
 //Contributors:
