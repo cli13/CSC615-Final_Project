@@ -47,7 +47,7 @@ double calculateLinearSpeed(double diameter, double angularSpeed) {
 int readPulses(double time, int pin) {
     int count = 0;
     double start = millis();
-    double end = start + (500 * time);
+    double end = start + (1000 * time);
 
     printf("start: %f, end: %f\n", start, end);
 
@@ -70,7 +70,8 @@ void *useSpeedSensor(void *ptr) {
     pin = *((int *) ptr);
     double aSpeed;
     double speed;
-        
+    
+    while(1) {
     aSpeed = calculateAngularSpeed(readPulses(TIME_TO_MEASURE, pin), TIME_TO_MEASURE);
     speed = calculateLinearSpeed(WHEEL_DIAMETER, aSpeed);
 
@@ -87,6 +88,7 @@ void *useSpeedSensor(void *ptr) {
         writeSpeed(3, speed);
     }
 
+    }
     
     return NULL;
 }
@@ -98,7 +100,7 @@ double averageSpeed(void) {
     total = MOTORS_SPEED[0] + MOTORS_SPEED[2];
 
     printf("Total speed added: %f\n", total);
-    
+
     return total / NUMBER_OF_MOTORS;
 
 }

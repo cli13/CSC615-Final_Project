@@ -28,26 +28,47 @@ void setUp() {
 //calculates crash time in parallel
 void *calculateCrashTime(void *ptr) {
 
-    double distance = readDistance();
-    double speed    = averageSpeed();
+    double speed;
+    double distance;
+
+    while (TIME_TO_CRASH > SAFE_TIME) {
+
+        distance = readDistance();
+        speed    = averageSpeed();
         
-    if (speed > 0) {
-        TIME_TO_CRASH = distance / speed;
+        if (speed > 0) {
+            TIME_TO_CRASH = distance / speed;
+        }
+        
+        printf("Distance: %f\tSpeed: %f\n", distance, speed);
+        printf("time to crash: %f\n", TIME_TO_CRASH);
     }
-        
-    printf("Distance: %f\tSpeed: %f\n", distance, speed);
-    printf("time to crash: %f\n", TIME_TO_CRASH);
+
+    decreaseMotorPowerToZero();
+
+    printf("Distance to object: %f\n", readDistance());
+
+    cleanUp();
+}
+
+void *objectInFront(void *ptr) {
+
+    while (!isObjectInFront()){}
+    decreaseMotorPowerToZero();
+    printf("Distance to object: %f\n", readDistance());
+    cleanUp();
+
 }
 
 void moveforward() {
 
-    pthread_t t1, t2, t3, t4, t5, t6, t7;
+    pthread_t t1, t2, t3, t4, t5, t6, t7, t8;
     int s1, s2, s3, s4, motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
     void *m1 = &motor1;
     void *m2 = &motor2;
     void *m3 = &motor3;
     void *m4 = &motor4;
-    int sp1 = SPEED_SENSOR_THREE_PIN, sp2 = SPEED_SENSOR_ONE_PIN, s5, s6, s7;
+    int sp1 = SPEED_SENSOR_THREE_PIN, sp2 = SPEED_SENSOR_ONE_PIN, s5, s6, s7, s8;
     void *sd1 = &sp1;
     void *sd2 = &sp2;
 
@@ -71,26 +92,23 @@ void moveforward() {
     pthread_join( t3, NULL);
     pthread_join( t4, NULL);
     
-    while (TIME_TO_CRASH > SAFE_TIME && !isObjectInFront()) {
         
-        if ((s5 = pthread_create(&t5, NULL, useSpeedSensor, sd1))) {
-            printf("thread creation failed: %i\n", s5);
-        }
-        if ((s6 = pthread_create(&t6, NULL, useSpeedSensor, sd2))) {
-            printf("thread creation failed: %i\n", s6);
-        }
-
-        if ((s7 pthread_create(&t7, NULL, calculateCrashTime, NULL))) {
-            printf("thread creation failed: %i\n", s7)
-        }
-
+    if ((s5 = pthread_create(&t5, NULL, useSpeedSensor, sd1))) {
+        printf("thread creation failed: %i\n", s5);
+    }
+    if ((s6 = pthread_create(&t6, NULL, useSpeedSensor, sd2))) {
+        printf("thread creation failed: %i\n", s6);
     }
 
-    decreaseMotorPowerToZero();
+    if ((s7 = pthread_create(&t7, NULL, calculateCrashTime, NULL))) {
+        printf("thread creation failed: %i\n", s7);
+    }
 
-    printf("Distance to object: %f\n", readDistance());
+    if ((s8 = pthread_create(&t8, NULL, objectInFront, NULL))) {
+        printf("thread creation failed: %i\n", s8);
+    }
 
-    cleanUp();
+    while(1) {}
     
 }
 

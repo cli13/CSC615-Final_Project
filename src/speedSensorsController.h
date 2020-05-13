@@ -27,7 +27,7 @@
 #define SPEED_SENSOR_THREE_PIN  29                      //pin 40(GPIO 21)
 #define SPEED_SENSOR_FOUR_PIN   1                       //pin 12(GPIO 18)
 
-#define TIME_TO_MEASURE         1.0                     //Time frame used to measure pulses.
+#define TIME_TO_MEASURE         0.5                     //Time frame used to measure pulses.
 #define ARRAY_INIT_VAL          0.0                     //Initial value for array elements.
 #define WHEEL_DIAMETER          6.0                     //in centimeters.
 
