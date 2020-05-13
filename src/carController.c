@@ -25,13 +25,60 @@ void setUp() {
     speedSensorSet();
 } 
 
+void moveBack(pthread_t t1, pthread_t t2, pthread_t t3, pthread_t t4, void *m1, void *m2, void *m3, void *m4) {
+
+    int s1, s2, s3, s4;
+
+    motorsCleanUp();
+
+    MOTOR_THREE_F;
+    MOTOR_TWO_F;
+
+    delay(6000);
+
+    motorsCleanUp();
+
+    MOTOR_ONE_F;
+    MOTOR_FOUR_F;
+    
+    delay(3000);
+
+    motorsCleanUp();
+
+    if ((s1 = pthread_create(&t1, NULL, motorToControlForward, m1))) {
+        printf("thread creation failed: %d\n", s1);
+    }
+    if ((s2 = pthread_create(&t2, NULL, motorToControlForward, m2))) {
+        printf("thread creation failed: %d\n", s2);
+    }
+    if ((s3 = pthread_create(&t3, NULL, motorToControlForward, m3))) {
+        printf("thread creation failed: %d\n", s3);
+    }
+    if ((s4 = pthread_create(&t4, NULL, motorToControlForward, m4))) {
+        printf("thread creation failed: %d\n", s4);
+    }
+
+    printf("join motor threads.\n");
+    pthread_join( t1, NULL);
+    pthread_join( t2, NULL);
+    pthread_join( t3, NULL);
+    pthread_join( t4, NULL);
+
+}
+
 //calculates crash time in parallel
 void *calculateCrashTime(void *ptr) {
 
     double speed;
     double distance;
+    pthread_t th1, th2, th3, th4;
+    int motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
+    void *m1 = &motor1;
+    void *m2 = &motor2;
+    void *m3 = &motor3;
+    void *m4 = &motor4;
 
-    while (TIME_TO_CRASH > SAFE_TIME) {
+    while (1) {
 
         distance = readDistance();
         speed    = averageSpeed();
@@ -39,16 +86,19 @@ void *calculateCrashTime(void *ptr) {
         if (speed > 0) {
             TIME_TO_CRASH = distance / speed;
         }
-    }
 
-    decreaseMotorPowerToZero();
+        if(TIME_TO_CRASH > SAFE_TIME) {
+            moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
+        }
+    }
 
     cleanUp();
 }
 
 void *objectInFront(void *ptr) {
 
-    while (!isObjectInFront()){}
+    while(1){}
+    //while (!isObjectInFront()){}
     decreaseMotorPowerToZero();
     cleanUp();
 

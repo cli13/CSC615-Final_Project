@@ -39,21 +39,13 @@ void speedSensorSet(void);
 //Contributors:
 int readPulses(int pin);
 
-//calculates and returns angular speed using formula omega = (2*PI*NumberOfPulses) / (Time * PulsesPerRotation). Speed in radians per second.
+//calculates and returns the speed of the wheel.
 //Contributors:
-double calculateAngularSpeed(int totalPulses);
-
-//calculates and returns linear speed using formula v = ωr. Speed in centimeters per second.
-//Contributors:
-double calculateLinearSpeed(double diameter, double angularSpeed);
+double calculateSpeed(int totalPulses);
 
 //It writes the speed to the array containing the speeds of each motor.
 //Contributors:
 void writeSpeed(int motor, double speed);
-
-//It reads the speed of the array containing the speeds of each motor.
-//Contributors:
-double readSpeed(int motor);
 
 //Function to be used in threads to display the speed read by the speed sensor.
 //Contributors:
