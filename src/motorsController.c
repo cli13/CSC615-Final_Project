@@ -41,9 +41,9 @@ void motorsSet(void){
              }
 }
 
-void motorMove(int enabler, int control, int control2, int direction){
+void motorMove(int enabler, int control, int control2, int direction, int power){
     digitalWrite(enabler, HIGH);
-    softPwmWrite(enabler, 20);
+    softPwmWrite(enabler, power);
 
     if (direction) {
         digitalWrite(control2, LOW); // turn off the motorPin2

@@ -29,22 +29,6 @@ void moveBack(pthread_t t1, pthread_t t2, pthread_t t3, pthread_t t4, void *m1, 
 
     int s1, s2, s3, s4;
 
-    motorsCleanUp();
-
-    MOTOR_THREE_F;
-    MOTOR_TWO_F;
-
-    delay(6000);
-
-    motorsCleanUp();
-
-    MOTOR_ONE_F;
-    MOTOR_FOUR_F;
-    
-    delay(3000);
-
-    motorsCleanUp();
-
     if ((s1 = pthread_create(&t1, NULL, motorToControlForward, m1))) {
         printf("thread creation failed: %d\n", s1);
     }
@@ -87,7 +71,7 @@ void *calculateCrashTime(void *ptr) {
             TIME_TO_CRASH = distance / speed;
         }
 
-        if(TIME_TO_CRASH > SAFE_TIME) {
+        if(TIME_TO_CRASH < SAFE_TIME) {
             moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
         }
     }
