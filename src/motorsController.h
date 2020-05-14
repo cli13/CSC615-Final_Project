@@ -21,7 +21,7 @@
 
 #define MAX_INTENCITY           100 //the max range the motor can reach in power.
 #define MIN_INTENCITY            0  //the min range the motor can reach in power.
-#define POWER                   25 //Power of motor
+#define POWER                   20 //Power of motor
 
 #define MOTOR_ONE_ENABLER        0  //pin 11(GPIO 17)
 #define MOTOR_ONE_CONTROL        2  //pin 13(GPIO 27)

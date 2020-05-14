@@ -27,9 +27,9 @@ void setUp() {
 
 void reposition(int motor) {
     if (motor == 1) {
-        motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, FORWARD, 40); 
+        motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, FORWARD, 100); 
     } else {
-        motorMove(MOTOR_TWO_ENABLER, MOTOR_TWO_CONTROL, MOTOR_TWO_CONTROL_TWO, FORWARD, 40); 
+        motorMove(MOTOR_TWO_ENABLER, MOTOR_TWO_CONTROL, MOTOR_TWO_CONTROL_TWO, FORWARD, 100); 
     }
     //motorMove(MOTOR_THREE_ENABLER, MOTOR_THREE_CONTROL, MOTOR_THREE_CONTROL_TWO, BACKWARD,30); 
    // motorMove(MOTOR_FOUR_ENABLER, MOTOR_FOUR_CONTROL, MOTOR_FOUR_CONTROL_TWO, FORWARD, 30);
@@ -83,16 +83,22 @@ void *calculateCrashTime(void *ptr) {
 
         if(TIME_TO_CRASH < SAFE_TIME) {
             motorsCleanUp();
+	    delay(10);
             reposition(1);
             delay(2000);
             motorsCleanUp();
             moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
+	    motorsCleanUp();
+	    delay(10);
             reposition(2);
             delay(2000);
             motorsCleanUp();
             moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
+	    motorsCleanUp();
+	    delay(10);
             reposition(1);
             delay(1000);
+	    motorsCleanUp();
             moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
         }
     }
