@@ -74,6 +74,8 @@ void *calculateCrashTime(void *ptr) {
 
     while (1) {
 
+	if(isOnLine(LINESENSOR_ONE_PIN)) {
+		
         distance = readDistance();
         speed    = averageSpeed();
         
@@ -101,6 +103,7 @@ void *calculateCrashTime(void *ptr) {
 	    motorsCleanUp();
             moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
         }
+	}
     }
 
 }
