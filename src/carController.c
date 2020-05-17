@@ -8,7 +8,7 @@
 #include "motorsController.h"
 
 double TIME_TO_CRASH = 100;   //in secs
-double SAFE_TIME = 2.7;      //in secs
+double SAFE_TIME = 2;      //in secs
 
 void cleanUp() {
     echoSensorCleanUp();
@@ -73,15 +73,15 @@ void *adjustCar(void *ptr) {
         if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_LEFT_PIN)) {
 	    printf("Adjusting to the right.\n");
             adjustMotorsSpeed(0);
-            delay(500);
+            delay(125);
         }
         if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_RIGHT_PIN)) {
             printf("Adjusting to the left.\n");
 	    adjustMotorsSpeed(1);
-            delay(500);
+            delay(125);
         }
       //  if (readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN)) {
-            returnToRegularSpeed(th1, th2, th3, th4, m1, m2, m3, m4);
+         //  returnToRegularSpeed(th1, th2, th3, th4, m1, m2, m3, m4);
        // }
     }
 }

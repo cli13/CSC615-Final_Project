@@ -153,19 +153,19 @@ void adjustMotorsSpeed(int side) {
         digitalWrite(MOTOR_TWO_ENABLER, HIGH);
         digitalWrite(MOTOR_ONE_ENABLER, HIGH);
 
-        softPwmWrite(MOTOR_FOUR_ENABLER, POWER+5);
-        softPwmWrite(MOTOR_THREE_ENABLER, POWER-5);
-        softPwmWrite(MOTOR_TWO_ENABLER, POWER-5);
-        softPwmWrite(MOTOR_ONE_ENABLER, POWER+5);
+        softPwmWrite(MOTOR_FOUR_ENABLER, POWER+15);
+        softPwmWrite(MOTOR_THREE_ENABLER, POWER-15);
+        softPwmWrite(MOTOR_TWO_ENABLER, POWER-15);
+        softPwmWrite(MOTOR_ONE_ENABLER, POWER+15);
     } else {
         digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
         digitalWrite(MOTOR_THREE_ENABLER, HIGH);
         digitalWrite(MOTOR_TWO_ENABLER, HIGH);
         digitalWrite(MOTOR_ONE_ENABLER, HIGH);
 
-        softPwmWrite(MOTOR_FOUR_ENABLER, POWER-5);
-        softPwmWrite(MOTOR_THREE_ENABLER, POWER+5);
-        softPwmWrite(MOTOR_TWO_ENABLER, POWER+5);
-        softPwmWrite(MOTOR_ONE_ENABLER, POWER-5);
+        softPwmWrite(MOTOR_FOUR_ENABLER, POWER-15);
+        softPwmWrite(MOTOR_THREE_ENABLER, POWER+15);
+        softPwmWrite(MOTOR_TWO_ENABLER, POWER+15);
+        softPwmWrite(MOTOR_ONE_ENABLER, POWER-15);
     }
 }
