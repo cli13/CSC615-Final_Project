@@ -9,6 +9,7 @@
 
 double TIME_TO_CRASH = 100;   //in secs
 double SAFE_TIME = 2;      //in secs
+bool OBSTACLE_AVOIDANCE_PROTOCOL = false;
 
 void cleanUp() {
     echoSensorCleanUp();
@@ -70,19 +71,18 @@ void *adjustCar(void *ptr) {
     void *m3 = &motor3;
     void *m4 = &motor4;
     while(1) {
-        if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_LEFT_PIN)) {
-	    printf("Adjusting to the right.\n");
-            adjustMotorsSpeed(0);
-            delay(125);
+        if (!OBSTACLE_AVOIDANCE_PROTOCOL) {
+            if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_LEFT_PIN)) {
+	            printf("Adjusting to the right.\n");
+                adjustMotorsSpeed(0);
+                delay(125);
+            }
+            if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_RIGHT_PIN)) {
+                printf("Adjusting to the left.\n");
+	            adjustMotorsSpeed(1);
+                delay(125);
+            }
         }
-        if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_RIGHT_PIN)) {
-            printf("Adjusting to the left.\n");
-	    adjustMotorsSpeed(1);
-            delay(125);
-        }
-      //  if (readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN)) {
-         //  returnToRegularSpeed(th1, th2, th3, th4, m1, m2, m3, m4);
-       // }
     }
 }
 
@@ -134,7 +134,11 @@ void *calculateCrashTime(void *ptr) {
         }
 
         if(TIME_TO_CRASH < SAFE_TIME) {
-          cleanUp();
+            OBSTACLE_AVOIDANCE_PROTOCOL = true;
+            moveLeft();
+            delay(1000);
+            moveRight();
+            delay(1000);
         }
 	
     }
@@ -198,10 +202,6 @@ int main() {
     setUp();
 
     moveforward();
-
-   // while (1) {
-     //   whichOneIsDetectingLine();
-   // }
     
     cleanUp();
     
