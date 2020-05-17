@@ -37,17 +37,29 @@ void whichOneIsDetectingLine() {
     }
 }
 
-void reposition(int motor) {
-    if (motor == 1) {
-        motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, FORWARD, 100); 
-    } else {
-        motorMove(MOTOR_TWO_ENABLER, MOTOR_TWO_CONTROL, MOTOR_TWO_CONTROL_TWO, FORWARD, 100); 
+void *adjustCar(void *ptr) {
+    pthread_t th1, th2, th3, th4;
+    int motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
+    void *m1 = &motor1;
+    void *m2 = &motor2;
+    void *m3 = &motor3;
+    void *m4 = &motor4;
+    while(1) {
+        if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_LEFT_PIN)) {
+            adjustMotorsSpeed(0);
+            delay(500);
+        }
+        if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_RIGHT_PIN)) {
+            adjustMotorsSpeed(1);
+            delay(500);
+        }
+        if (readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN)) {
+            returnToRegularSpeed(th1, th2, th3, th4, m1, m2, m3, m4);
+        }
     }
-    //motorMove(MOTOR_THREE_ENABLER, MOTOR_THREE_CONTROL, MOTOR_THREE_CONTROL_TWO, BACKWARD,30); 
-   // motorMove(MOTOR_FOUR_ENABLER, MOTOR_FOUR_CONTROL, MOTOR_FOUR_CONTROL_TWO, FORWARD, 30);
 }
 
-void moveBack(pthread_t t1, pthread_t t2, pthread_t t3, pthread_t t4, void *m1, void *m2, void *m3, void *m4) {
+void returnToRegularSpeed(pthread_t t1, pthread_t t2, pthread_t t3, pthread_t t4, void *m1, void *m2, void *m3, void *m4) {
 
     int s1, s2, s3, s4;
 
@@ -95,7 +107,7 @@ void selfAdjust(pthread_t t1, pthread_t t2, pthread_t t3, pthread_t t4, void *m1
     	pthread_join( t2, NULL);
     	pthread_join( t3, NULL);
     	pthread_join( t4, NULL);
-    } else if(!isOneLine(LINESENSOR_LEFT_PIN)) { 
+    } else if(!isOnLine(LINESENSOR_LEFT_PIN)) { 
 	// turn right
         motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, FORWARD, 75); 
     } else if(!isOnLine(LINESENSOR_RIGHT_PIN)) {
@@ -109,16 +121,8 @@ void *calculateCrashTime(void *ptr) {
 
     double speed;
     double distance;
-    pthread_t th1, th2, th3, th4;
-    int motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
-    void *m1 = &motor1;
-    void *m2 = &motor2;
-    void *m3 = &motor3;
-    void *m4 = &motor4;
 
     while (1) {
-
-	if(isOnLine(LINESENSOR_ONE_PIN)) {
 		
         distance = readDistance();
         speed    = averageSpeed();
@@ -128,26 +132,9 @@ void *calculateCrashTime(void *ptr) {
         }
 
         if(TIME_TO_CRASH < SAFE_TIME) {
-            motorsCleanUp();
-	    delay(10);
-            reposition(1);
-            delay(2000);
-            motorsCleanUp();
-            moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
-	    motorsCleanUp();
-	    delay(10);
-            reposition(2);
-            delay(2000);
-            motorsCleanUp();
-            moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
-	    motorsCleanUp();
-	    delay(10);
-            reposition(1);
-            delay(1000);
-	    motorsCleanUp();
-            moveBack(th1, th2, th3, th4, m1, m2, m3, m4);
+          cleanUp();
         }
-	}
+	
     }
 
 }
@@ -196,6 +183,10 @@ void moveforward() {
         printf("thread creation failed: %i\n", s7);
     }
 
+    if ((s8 = pthread_create(&t8, NULL, adjustCar, NULL))) {
+        printf("thread creation failed: %i\n", s8);
+    }
+
    while(1) {} 
 }
 
@@ -205,6 +196,7 @@ int main() {
     setUp();
 
     //moveforward();
+
     while (1) {
         whichOneIsDetectingLine();
     }

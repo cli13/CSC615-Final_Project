@@ -96,4 +96,7 @@ void runMotors(int time);
 //Contributors:
 void motorsCleanUp(void);
 
+//Adjusts the speed of the motors in the right(0) or left(1) side of the car
+void adjustMotorsSpeed(int side);
+
 #endif
