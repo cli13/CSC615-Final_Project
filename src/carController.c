@@ -71,16 +71,18 @@ void *adjustCar(void *ptr) {
     void *m4 = &motor4;
     while(1) {
         if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_LEFT_PIN)) {
+	    printf("Adjusting to the right.\n");
             adjustMotorsSpeed(0);
             delay(500);
         }
         if(!readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_RIGHT_PIN)) {
-            adjustMotorsSpeed(1);
+            printf("Adjusting to the left.\n");
+	    adjustMotorsSpeed(1);
             delay(500);
         }
-        if (readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN)) {
+      //  if (readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN)) {
             returnToRegularSpeed(th1, th2, th3, th4, m1, m2, m3, m4);
-        }
+       // }
     }
 }
 
@@ -195,11 +197,11 @@ int main() {
 
     setUp();
 
-    //moveforward();
+    moveforward();
 
-    while (1) {
-        whichOneIsDetectingLine();
-    }
+   // while (1) {
+     //   whichOneIsDetectingLine();
+   // }
     
     cleanUp();
     
