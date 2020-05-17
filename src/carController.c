@@ -25,6 +25,18 @@ void setUp() {
     speedSensorSet();
 } 
 
+void whichOneIsDetectingLine() {
+    if (readLinePin(LINESENSOR_MIDDLE_PIN)) {
+        printf("Middle line sensor is in line.\n");
+    }
+    if(readLinePin(LINESENSOR_LEFT_PIN)) {
+        printf("Left line sensor is in line.\n");
+    }
+    if (readLinePin(LINESENSOR_RIGHT_PIN)) {
+        printf("Right line sensor is in line.\n");
+    }
+}
+
 void reposition(int motor) {
     if (motor == 1) {
         motorMove(MOTOR_ONE_ENABLER, MOTOR_ONE_CONTROL, MOTOR_ONE_CONTROL_TWO, FORWARD, 100); 
@@ -140,15 +152,6 @@ void *calculateCrashTime(void *ptr) {
 
 }
 
-void *objectInFront(void *ptr) {
-
-    while(1){}
-    //while (!isObjectInFront()){}
-    decreaseMotorPowerToZero();
-    cleanUp();
-
-}
-
 void moveforward() {
 
     pthread_t t1, t2, t3, t4, t5, t6, t7, t8;
@@ -193,10 +196,6 @@ void moveforward() {
         printf("thread creation failed: %i\n", s7);
     }
 
-    if ((s8 = pthread_create(&t8, NULL, objectInFront, NULL))) {
-        printf("thread creation failed: %i\n", s8);
-    }
-
    while(1) {} 
 }
 
@@ -205,7 +204,10 @@ int main() {
 
     setUp();
 
-    moveforward();
+    //moveforward();
+    while (1) {
+        whichOneIsDetectingLine();
+    }
     
     cleanUp();
     
