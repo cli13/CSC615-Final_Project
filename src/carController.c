@@ -100,12 +100,14 @@ void *adjustCar(void *ptr) {
 		printf("Middle detected.\n");
 		OBSTACLE_AVOIDANCE_PROTOCOL = false;
 		//stopMotors();
-	        //delay(200);	
 		moveLeft();
-		delay(1500);
+	        delay(1500);
+		//while(!readLinePin(LINESENSOR_LEFT_PIN)) {	
+		//moveLeft();
+		//}
 		MOVED_LEFT=false;
-		//cleanUp();
-		moveRegular();
+	        //cleanUp();
+          	moveRegular();
 	    }
 	}
 
@@ -124,7 +126,7 @@ void *calculateCrashTime(void *ptr) {
     double speed;
     double distance;
     int TIME_TO_CRASH = 100;
-    int SAFE_TIME = 1;
+    int SAFE_TIME = 6;
 
     while (1) {
 		
