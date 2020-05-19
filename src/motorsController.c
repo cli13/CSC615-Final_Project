@@ -177,10 +177,10 @@ void moveLeft() {
     digitalWrite(MOTOR_TWO_ENABLER, HIGH);
     digitalWrite(MOTOR_ONE_ENABLER, HIGH);
 
-    softPwmWrite(MOTOR_FOUR_ENABLER, POWER);
-    softPwmWrite(MOTOR_THREE_ENABLER, POWER + 40);
+    softPwmWrite(MOTOR_FOUR_ENABLER, 0);
+    softPwmWrite(MOTOR_THREE_ENABLER, 0);
     softPwmWrite(MOTOR_TWO_ENABLER, POWER+40);
-    softPwmWrite(MOTOR_ONE_ENABLER, POWER);
+    softPwmWrite(MOTOR_ONE_ENABLER, 0);
 }
 
 
@@ -190,9 +190,9 @@ void moveRight() {
     digitalWrite(MOTOR_TWO_ENABLER, HIGH);
     digitalWrite(MOTOR_ONE_ENABLER, HIGH);
 
-    softPwmWrite(MOTOR_FOUR_ENABLER, POWER+65);
-    softPwmWrite(MOTOR_THREE_ENABLER, POWER);
-    softPwmWrite(MOTOR_TWO_ENABLER, POWER);
+    softPwmWrite(MOTOR_FOUR_ENABLER, 0);
+    softPwmWrite(MOTOR_THREE_ENABLER, 0);
+    softPwmWrite(MOTOR_TWO_ENABLER, 0);
     softPwmWrite(MOTOR_ONE_ENABLER, POWER+65);
 }
 
@@ -206,4 +206,16 @@ void moveRegular() {
     softPwmWrite(MOTOR_THREE_ENABLER, POWER);
     softPwmWrite(MOTOR_TWO_ENABLER, POWER);
     softPwmWrite(MOTOR_ONE_ENABLER, POWER);
+}
+
+void stopMotors() {
+    digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+    digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+    digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+    digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+    softPwmWrite(MOTOR_FOUR_ENABLER, 0);
+    softPwmWrite(MOTOR_THREE_ENABLER, 0);
+    softPwmWrite(MOTOR_TWO_ENABLER, 0);
+    softPwmWrite(MOTOR_ONE_ENABLER, 0);
 }

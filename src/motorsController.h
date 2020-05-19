@@ -105,4 +105,6 @@ void moveLeft();
 
 void moveRegular();
 
+void stopMotors();
+
 #endif
