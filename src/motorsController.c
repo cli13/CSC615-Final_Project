@@ -193,7 +193,7 @@ void moveRight() {
     softPwmWrite(MOTOR_FOUR_ENABLER, 0);
     softPwmWrite(MOTOR_THREE_ENABLER, 0);
     softPwmWrite(MOTOR_TWO_ENABLER, 0);
-    softPwmWrite(MOTOR_ONE_ENABLER, POWER+65);
+    softPwmWrite(MOTOR_ONE_ENABLER, POWER+50);
 }
 
 void moveRegular() {

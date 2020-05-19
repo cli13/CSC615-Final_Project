@@ -8,7 +8,7 @@
 #include "motorsController.h"
 
 double TIME_TO_CRASH = 100;   //in secs
-double SAFE_TIME = 6;      //in secs
+double SAFE_TIME = 5;      //in secs
 bool OBSTACLE_AVOIDANCE_PROTOCOL = false;
 bool MOVED_LEFT = false;
 int LAST_READ = 0;
@@ -89,6 +89,12 @@ void *adjustCar(void *ptr) {
 	        moveRegular();
 		printf("Middle detected.\n");
 		OBSTACLE_AVOIDANCE_PROTOCOL = false;
+		moveRegular();
+		delay(150);
+		stopMotors();
+		moveLeft();
+		delay(800);
+		cleanUp();
 	    }
 	}
 
@@ -121,12 +127,12 @@ void *calculateCrashTime(void *ptr) {
             stopMotors();
             moveLeft();
             delay(500);
-	        MOVED_LEFT=true;
-	        //moveRegular();
-	        //delay(150);
-            //moveRight();
-            //delay(1500);
-	        cleanUp();
+	     MOVED_LEFT=true;
+	     moveRegular();
+	     delay(2500);
+             moveRight();
+             delay(1300);
+	     moveRegular();
         }
 	
     }
