@@ -7,8 +7,8 @@
 #include "lineSensorsController.h"
 #include "motorsController.h"
 
-double TIME_TO_CRASH = 100;   //in secs
-double SAFE_TIME = 5;      //in secs
+//double TIME_TO_CRASH = 100;   //in secs
+//double SAFE_TIME = 5;      //in secs
 bool OBSTACLE_AVOIDANCE_PROTOCOL = false;
 bool MOVED_LEFT = false;
 int LAST_READ = 0;
@@ -77,23 +77,35 @@ void *adjustCar(void *ptr) {
             if( !readLinePin(LINESENSOR_LEFT_PIN) ) {
 	         printf("Adjusting to the right.\n");
                 adjustMotorsSpeed(0);
-                delay(125);
+               delay(125); 
             }
             if( !readLinePin(LINESENSOR_RIGHT_PIN) ) {
                 printf("Adjusting to the left.\n");
 	            adjustMotorsSpeed(1);
                 delay(125);
             }
+	    if(readLinePin(LINESENSOR_MIDDLE_PIN)) {
+	        if(LAST_READ == 1) {
+		    moveLeft();
+		    delay(100);
+		    moveRegular();
+		} else {
+		    moveRight();
+		    delay(100);
+		    moveRegular();
+		}
+	    }
         } else {
 	    if(!readLinePin(LINESENSOR_MIDDLE_PIN) && MOVED_LEFT) {
 		printf("Middle detected.\n");
 		OBSTACLE_AVOIDANCE_PROTOCOL = false;
-		stopMotors();
-		moveBack();
+		//stopMotors();
+	        //delay(200);	
 		moveLeft();
-		delay(1000);
+		delay(1500);
 		MOVED_LEFT=false;
-		cleanUp();
+		//cleanUp();
+		moveRegular();
 	    }
 	}
 
@@ -111,6 +123,8 @@ void *calculateCrashTime(void *ptr) {
 
     double speed;
     double distance;
+    int TIME_TO_CRASH = 100;
+    int SAFE_TIME = 1;
 
     while (1) {
 		
@@ -120,18 +134,20 @@ void *calculateCrashTime(void *ptr) {
         if (speed > 0) {
             TIME_TO_CRASH = distance / speed;
         }
+	printf("speed: %f\ndistance: %f\ntime to crash:%i\n", speed, distance, TIME_TO_CRASH);
 
         if(TIME_TO_CRASH < SAFE_TIME) {
             OBSTACLE_AVOIDANCE_PROTOCOL = true;
-            stopMotors();
+           // stopMotors();
             moveLeft();
             delay(700);
 	     MOVED_LEFT=true;
 	     moveRegular();
-	     delay(2500);
+	     delay(1800);
              moveRight();
-             delay(1300);
+             delay(1000);
 	     moveRegular();
+	     TIME_TO_CRASH = 100;
         }
 	
     }
