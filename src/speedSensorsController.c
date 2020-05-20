@@ -8,17 +8,10 @@ void speedSensorSet(void) {
     wiringPiSetup();
 
     pinMode(SPEED_SENSOR_ONE_PIN, INPUT);
-    pinMode(SPEED_SENSOR_TWO_PIN, INPUT);
+    
     pinMode(SPEED_SENSOR_THREE_PIN, INPUT);
-    pinMode(SPEED_SENSOR_FOUR_PIN, INPUT);
-}
-
-void writeSpeed(int motor, double speed) {
-    
-    MOTORS_SPEED[motor] = speed;
     
 }
-
 
 double calculateSpeed(int totalPulses) {
     return (2.0 * PI * totalPulses * (WHEEL_DIAMETER / 2) ) / (TIME_TO_MEASURE * PULSES_PER_ROTATION);

@@ -7,8 +7,6 @@
 #include "lineSensorsController.h"
 #include "motorsController.h"
 
-//double TIME_TO_CRASH = 100;   //in secs
-//double SAFE_TIME = 5;      //in secs
 bool OBSTACLE_AVOIDANCE_PROTOCOL = false;
 bool MOVED_LEFT = false;
 int LAST_READ = 0;
@@ -28,42 +26,6 @@ void setUp() {
     speedSensorSet();
 }
 
-void returnToRegularSpeed(pthread_t t1, pthread_t t2, pthread_t t3, pthread_t t4, void *m1, void *m2, void *m3, void *m4) {
-
-    int s1, s2, s3, s4;
-
-    if ((s1 = pthread_create(&t1, NULL, motorToControlForward, m1))) {
-        printf("thread creation failed: %d\n", s1);
-    }
-    if ((s2 = pthread_create(&t2, NULL, motorToControlForward, m2))) {
-        printf("thread creation failed: %d\n", s2);
-    }
-    if ((s3 = pthread_create(&t3, NULL, motorToControlForward, m3))) {
-        printf("thread creation failed: %d\n", s3);
-    }
-    if ((s4 = pthread_create(&t4, NULL, motorToControlForward, m4))) {
-        printf("thread creation failed: %d\n", s4);
-    }
-
-    printf("join motor threads.\n");
-    pthread_join( t1, NULL);
-    pthread_join( t2, NULL);
-    pthread_join( t3, NULL);
-    pthread_join( t4, NULL);
-
-}
-
-void whichOneIsDetectingLine() {
-    if (readLinePin(LINESENSOR_MIDDLE_PIN)) {
-        printf("Middle line sensor is in line.\n");
-    }
-    if(readLinePin(LINESENSOR_LEFT_PIN)) {
-        printf("Left line sensor is in line.\n");
-    }
-    if (readLinePin(LINESENSOR_RIGHT_PIN)) {
-        printf("Right line sensor is in line.\n");
-    }
-}
 
 void *adjustCar(void *ptr) {
     pthread_t th1, th2, th3, th4;
@@ -97,15 +59,12 @@ void *adjustCar(void *ptr) {
 	    }
         } else {
 	    if(!readLinePin(LINESENSOR_MIDDLE_PIN) && MOVED_LEFT) {
-		printf("Middle detected.\n");
-		OBSTACLE_AVOIDANCE_PROTOCOL = false;
-		//stopMotors();
-		moveLeft();
+		    printf("Middle detected.\n");
+		    OBSTACLE_AVOIDANCE_PROTOCOL = false;
+		    moveLeft();
 	        delay(1500);
-		//while(!readLinePin(LINESENSOR_LEFT_PIN)) {	
-		//moveLeft();
-		//}
-		MOVED_LEFT=false;
+	
+		    MOVED_LEFT=false;
 	        //cleanUp();
           	moveRegular();
 	    }
@@ -143,13 +102,13 @@ void *calculateCrashTime(void *ptr) {
            // stopMotors();
             moveLeft();
             delay(700);
-	     MOVED_LEFT=true;
-	     moveRegular();
-	     delay(1800);
-             moveRight();
-             delay(1000);
-	     moveRegular();
-	     TIME_TO_CRASH = 100;
+	        MOVED_LEFT=true;
+	        moveRegular();
+	        delay(1800);
+            moveRight();
+            delay(1000);
+	        moveRegular();
+	        TIME_TO_CRASH = 100;
         }
 	
     }

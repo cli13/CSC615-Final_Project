@@ -66,9 +66,6 @@ void motorsSet(void);
 //Contributors:
 void motorMove(int enabler, int control, int control2, int direction, int power);
 
-//Decreases gradualy the power of the motors until it reaches zero.
-void decreaseMotorPowerToZero(void);
-
 //takes the motor enabler pin # and the pin #'s of the controllers
 //and makes the motor stop.
 //Contributors:
@@ -80,18 +77,6 @@ void motorStop(int enabler, int control, int control2);
 //Contributors:
 void *motorToControlForward(void *ptr);
 
-//Thread function that makes the motor go backward.
-//the void pointer must point to either 1 or 2 to indicate the motor to control. 
-//returns NULL.
-//Contributors:
-void *motorToControlBackward(void *ptr);
-
-//Runs the motors forwards by a certain amount of time and then backwards by that same amount of time.
-//Takes the time that the motor will run forward and backward in seconds.
-//This is a test function
-//Contributors:
-void runMotors(int time);
-
 //This function stops all the motors.
 //Contributors:
 void motorsCleanUp(void);
@@ -99,12 +84,16 @@ void motorsCleanUp(void);
 //Adjusts the speed of the motors in the right(0) or left(1) side of the car
 void adjustMotorsSpeed(int side);
 
+//makes the move turn right
 void moveRight();
 
+//makes motor turn left
 void moveLeft();
 
+//makes motor run normally at power 20
 void moveRegular();
 
+//puts power of motors at 0
 void stopMotors();
 
 #endif

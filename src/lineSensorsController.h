@@ -35,9 +35,4 @@ void lineSensorSetup(void);
 //This function reads a linepin and return the pin's output
 int readLinePin(int readPin);
 
-//This function check whether the linesensor is detecting a line or not
-//parameter: the pin of the linesensor
-//return true when the linesensor detect a line, return false otherwise
-bool isOnLine(int);
-
 #endif
