@@ -108,8 +108,15 @@ void *calculateCrashTime(void *ptr) {
 	printf("speed: %f\ndistance: %f\ntime to crash:%i\n", speed, distance, TIME_TO_CRASH);
 
         if(TIME_TO_CRASH < SAFE_TIME) {
+            stopMotors();
+            delay(10000);
+            distance = readDistance();
+            if (distance > 500) {
+                moveRegular();
+                break;
+            }
             OBSTACLE_AVOIDANCE_PROTOCOL = true;
-           // stopMotors();
+           
             moveLeft();
             delay(700);
 	        MOVED_LEFT=true;
