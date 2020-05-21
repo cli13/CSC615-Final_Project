@@ -34,35 +34,45 @@ void *adjustCar(void *ptr) {
     void *m2 = &motor2;
     void *m3 = &motor3;
     void *m4 = &motor4;
+    bool MADE_BACK = false;
+
     while(1) {
         if (!OBSTACLE_AVOIDANCE_PROTOCOL) {
             if( !readLinePin(LINESENSOR_LEFT_PIN) ) {
+		    MADE_BACK = true;
 	         printf("Adjusting to the right.\n");
                 adjustMotorsSpeed(0);
                delay(125); 
+	       
             }
             if( !readLinePin(LINESENSOR_RIGHT_PIN) ) {
+		    MADE_BACK = true;
                 printf("Adjusting to the left.\n");
 	            adjustMotorsSpeed(1);
                 delay(125);
+		
             }
 	    if(readLinePin(LINESENSOR_MIDDLE_PIN)) {
+		
 	        if(LAST_READ == 1) {
+		    
 		    moveLeft();
 		    delay(100);
 		    moveRegular();
 		} else {
+		    
 		    moveRight();
 		    delay(100);
 		    moveRegular();
 		}
+	    } 
 	    }
         } else {
 	    if(!readLinePin(LINESENSOR_MIDDLE_PIN) && MOVED_LEFT) {
 		    printf("Middle detected.\n");
 		    OBSTACLE_AVOIDANCE_PROTOCOL = false;
 		    moveLeft();
-	        delay(1500);
+	        delay(1300);
 	
 		    MOVED_LEFT=false;
 	        //cleanUp();
@@ -106,7 +116,7 @@ void *calculateCrashTime(void *ptr) {
 	        moveRegular();
 	        delay(1800);
             moveRight();
-            delay(1000);
+            delay(1300);
 	        moveRegular();
 	        TIME_TO_CRASH = 100;
         }
