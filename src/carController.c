@@ -34,7 +34,7 @@ void *adjustCar(void *ptr) {
     void *m2 = &motor2;
     void *m3 = &motor3;
     void *m4 = &motor4;
-    bool MADE_BACK = false;
+    bool MADE_BACK = true;
 
     while(1) {
         if (!OBSTACLE_AVOIDANCE_PROTOCOL) {
@@ -59,14 +59,30 @@ void *adjustCar(void *ptr) {
 		    moveLeft();
 		    delay(100);
 		    moveRegular();
-		} else {
+		} else if (LAST_READ == 2){
 		    
 		    moveRight();
 		    delay(100);
 		    moveRegular();
 		}
 	    } 
-	    }
+	   if(readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_LEFT_PIN) && readLinePin(LINESENSOR_RIGHT_PIN) && MADE_BACK) {
+	       MADE_BACK = false;
+	       if (LAST_READ == 1) {
+	           stopMotors();
+		   delay(500);
+		   moveLeft();
+		   delay(1000);
+		   moveRegular();
+	       } else if (LAST_READ == 2) {
+	           stopMotors();
+		   delay(500);
+		   moveRight();
+		   delay(1000);
+		   moveRegular();
+		   
+	       }
+	   } 
         } else {
 	    if(!readLinePin(LINESENSOR_MIDDLE_PIN) && MOVED_LEFT) {
 		    printf("Middle detected.\n");
@@ -75,7 +91,7 @@ void *adjustCar(void *ptr) {
 	        delay(1300);
 	
 		    MOVED_LEFT=false;
-	        //cleanUp();
+	        
           	moveRegular();
 	    }
 	}
@@ -95,7 +111,7 @@ void *calculateCrashTime(void *ptr) {
     double speed;
     double distance;
     int TIME_TO_CRASH = 100;
-    int SAFE_TIME = 6;
+    int SAFE_TIME = 0;
 
     while (1) {
 		
@@ -108,24 +124,31 @@ void *calculateCrashTime(void *ptr) {
 	printf("speed: %f\ndistance: %f\ntime to crash:%i\n", speed, distance, TIME_TO_CRASH);
 
         if(TIME_TO_CRASH < SAFE_TIME) {
+		OBSTACLE_AVOIDANCE_PROTOCOL = true;
             stopMotors();
-            delay(10000);
+            delay(5000);
             distance = readDistance();
-            if (distance > 500) {
+            if (distance > 1000) {
+		OBSTACLE_AVOIDANCE_PROTOCOL = false;    
                 moveRegular();
                 break;
             }
-            OBSTACLE_AVOIDANCE_PROTOCOL = true;
-           
+            
+           TIME_TO_CRASH = 100;
             moveLeft();
             delay(700);
 	        MOVED_LEFT=true;
 	        moveRegular();
-	        delay(1800);
+	        delay(800);
             moveRight();
-            delay(1300);
+            delay(700);
+	    stopMotors();
+	    delay(100);
 	        moveRegular();
-	        TIME_TO_CRASH = 100;
+		delay(1500);
+	        moveRight();
+		delay(700);
+		moveRegular();
         }
 	
     }
