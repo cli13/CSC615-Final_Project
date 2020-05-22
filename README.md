@@ -1,4 +1,4 @@
-#TEAM: Electric Bears
+# Team: Electric Bears
 
 All the rules to make sure the project goes smothly.
 
