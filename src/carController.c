@@ -38,70 +38,69 @@ void *adjustCar(void *ptr) {
 
     while(1) {
         if (!OBSTACLE_AVOIDANCE_PROTOCOL) {
-            if( !readLinePin(LINESENSOR_LEFT_PIN) ) {
+            if( readLinePin(LINESENSOR_LEFT_PIN) ) {
 		    MADE_BACK = true;
 	         printf("Adjusting to the right.\n");
                 adjustMotorsSpeed(0);
                delay(125); 
 	       
             }
-            if( !readLinePin(LINESENSOR_RIGHT_PIN) ) {
+            if( readLinePin(LINESENSOR_RIGHT_PIN) ) {
 		    MADE_BACK = true;
                 printf("Adjusting to the left.\n");
 	            adjustMotorsSpeed(1);
                 delay(125);
 		
             }
-	    if(readLinePin(LINESENSOR_MIDDLE_PIN)) {
+	        if(!readLinePin(LINESENSOR_MIDDLE_PIN)) {
 		
-	        if(LAST_READ == 1) {
+	            if(LAST_READ == 1) {
 		    
-		    moveLeft();
-		    delay(100);
-		    moveRegular();
-		} else if (LAST_READ == 2){
+		            moveLeft();
+		            delay(100);
+		            moveRegular();
+		        } else if (LAST_READ == 2){
 		    
-		    moveRight();
-		    delay(100);
-		    moveRegular();
-		}
-	    } 
-	   if(readLinePin(LINESENSOR_MIDDLE_PIN) && readLinePin(LINESENSOR_LEFT_PIN) && readLinePin(LINESENSOR_RIGHT_PIN) && MADE_BACK) {
+		            moveRight();
+		            delay(100);
+		            moveRegular();
+		        }
+	        } 
+	    if(!readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN) && MADE_BACK) {
 	       MADE_BACK = false;
 	       if (LAST_READ == 1) {
 	           stopMotors();
-		   delay(500);
-		   moveLeft();
-		   delay(1000);
-		   moveRegular();
+		        delay(500);
+		        moveLeft();
+		        while(!readLinePin(LINESENSOR_MIDDLE_PIN)){}
+		        moveRegular();
 	       } else if (LAST_READ == 2) {
 	           stopMotors();
-		   delay(500);
-		   moveRight();
-		   delay(1000);
-		   moveRegular();
-		   
-	       }
-	   } 
-        } else {
-	    if(!readLinePin(LINESENSOR_MIDDLE_PIN) && MOVED_LEFT) {
-		    printf("Middle detected.\n");
-		    OBSTACLE_AVOIDANCE_PROTOCOL = false;
-		    moveLeft();
-	        delay(1300);
-	
-		    MOVED_LEFT=false;
-	        
-          	moveRegular();
-	    }
-	}
+		        delay(500);
+		        moveRight();
+		        while(!readLinePin(LINESENSOR_MIDDLE_PIN)){}
+		        moveRegular();
+	        }
 
-	if(!readLinePin(LINESENSOR_LEFT_PIN)) {
-	    LAST_READ = 1;
-	}
-	if(!readLinePin(LINESENSOR_RIGHT_PIN)) {
-	   LAST_READ = 2;
-	}
+        } else {
+	        if(readLinePin(LINESENSOR_MIDDLE_PIN) && MOVED_LEFT) {
+		        printf("Middle detected.\n");
+		        OBSTACLE_AVOIDANCE_PROTOCOL = false;
+		        moveLeft();
+	            delay(1300);
+	
+		        MOVED_LEFT=false;
+	        
+          	    moveRegular();
+	        }
+	    }
+
+	    if(readLinePin(LINESENSOR_LEFT_PIN)) {
+	        LAST_READ = 1;
+	    }
+	    if(readLinePin(LINESENSOR_RIGHT_PIN)) {
+	        LAST_READ = 2;
+	    }
     }
 }
 
@@ -111,7 +110,7 @@ void *calculateCrashTime(void *ptr) {
     double speed;
     double distance;
     int TIME_TO_CRASH = 100;
-    int SAFE_TIME = 0;
+    int SAFE_TIME = 4;
 
     while (1) {
 		
