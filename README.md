@@ -1,3 +1,5 @@
+#TEAM: Electric Bears
+
 All the rules to make sure the project goes smothly.
 
 Rules:
