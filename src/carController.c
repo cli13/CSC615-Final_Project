@@ -28,25 +28,19 @@ void setUp() {
 
 
 void *adjustCar(void *ptr) {
-    pthread_t th1, th2, th3, th4;
-    int motor1 = 1, motor2 = 2, motor3 = 3, motor4 = 4;
-    void *m1 = &motor1;
-    void *m2 = &motor2;
-    void *m3 = &motor3;
-    void *m4 = &motor4;
     bool MADE_BACK = true;
 
     while(1) {
         if (!OBSTACLE_AVOIDANCE_PROTOCOL) {
             if( readLinePin(LINESENSOR_LEFT_PIN) ) {
-		    MADE_BACK = true;
-	         printf("Adjusting to the right.\n");
+		        MADE_BACK = true;
+	            printf("Adjusting to the right.\n");
                 adjustMotorsSpeed(0);
-               delay(125); 
+                delay(125); 
 	       
             }
             if( readLinePin(LINESENSOR_RIGHT_PIN) ) {
-		    MADE_BACK = true;
+		        MADE_BACK = true;
                 printf("Adjusting to the left.\n");
 	            adjustMotorsSpeed(1);
                 delay(125);
@@ -59,29 +53,31 @@ void *adjustCar(void *ptr) {
 		            moveLeft();
 		            delay(100);
 		            moveRegular();
+
 		        } else if (LAST_READ == 2){
 		    
 		            moveRight();
 		            delay(100);
 		            moveRegular();
+                    
 		        }
 	        } 
-	    if(!readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN) && MADE_BACK) {
-	       MADE_BACK = false;
-	       if (LAST_READ == 1) {
-	           stopMotors();
-		        delay(500);
-		        moveLeft();
-		        while(!readLinePin(LINESENSOR_MIDDLE_PIN)){}
-		        moveRegular();
-	       } else if (LAST_READ == 2) {
-	           stopMotors();
-		        delay(500);
-		        moveRight();
-		        while(!readLinePin(LINESENSOR_MIDDLE_PIN)){}
-		        moveRegular();
-	        }
-
+	        if(!readLinePin(LINESENSOR_MIDDLE_PIN) && !readLinePin(LINESENSOR_LEFT_PIN) && !readLinePin(LINESENSOR_RIGHT_PIN) && MADE_BACK) {
+	            MADE_BACK = false;
+	            if (LAST_READ == 1) {
+	                stopMotors();
+		            delay(500);
+		            moveLeft();
+		            while(!readLinePin(LINESENSOR_MIDDLE_PIN)){}
+		            moveRegular();
+	            } else if (LAST_READ == 2) {
+	                stopMotors();
+		            delay(500);
+		            moveRight();
+		            while(!readLinePin(LINESENSOR_MIDDLE_PIN)){}
+		            moveRegular();
+	            }
+            }
         } else {
 	        if(readLinePin(LINESENSOR_MIDDLE_PIN) && MOVED_LEFT) {
 		        printf("Middle detected.\n");
@@ -120,20 +116,21 @@ void *calculateCrashTime(void *ptr) {
         if (speed > 0) {
             TIME_TO_CRASH = distance / speed;
         }
-	printf("speed: %f\ndistance: %f\ntime to crash:%i\n", speed, distance, TIME_TO_CRASH);
+
+	    printf("speed: %f\ndistance: %f\ntime to crash:%i\n", speed, distance, TIME_TO_CRASH);
 
         if(TIME_TO_CRASH < SAFE_TIME) {
-		OBSTACLE_AVOIDANCE_PROTOCOL = true;
+		    OBSTACLE_AVOIDANCE_PROTOCOL = true;
             stopMotors();
             delay(5000);
             distance = readDistance();
             if (distance > 1000) {
-		OBSTACLE_AVOIDANCE_PROTOCOL = false;    
+		        OBSTACLE_AVOIDANCE_PROTOCOL = false;    
                 moveRegular();
                 break;
             }
             
-           TIME_TO_CRASH = 100;
+            TIME_TO_CRASH = 100;
             moveLeft();
             delay(700);
 	        MOVED_LEFT=true;
@@ -141,13 +138,13 @@ void *calculateCrashTime(void *ptr) {
 	        delay(800);
             moveRight();
             delay(700);
-	    stopMotors();
-	    delay(100);
+	        stopMotors();
+	        delay(100);
 	        moveRegular();
-		delay(1500);
+		    delay(1500);
 	        moveRight();
-		delay(700);
-		moveRegular();
+		    delay(700);
+		    moveRegular();
         }
 	
     }
@@ -190,11 +187,11 @@ void moveforward() {
     if ((s5 = pthread_create(&t5, NULL, useSpeedSensor, sd1))) {
         printf("thread creation failed: %i\n", s5);
     }
-    if ((s6 = pthread_create(&t6, NULL, useSpeedSensor, sd2))) {
+    if ((s6 = pthread_create(&t7, NULL, useSpeedSensor, sd2))) {
         printf("thread creation failed: %i\n", s6);
     }
 
-    if ((s7 = pthread_create(&t7, NULL, calculateCrashTime, NULL))) {
+    if ((s7 = pthread_create(&t6, NULL, calculateCrashTime, NULL))) {
         printf("thread creation failed: %i\n", s7);
     }
 
