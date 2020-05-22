@@ -23,9 +23,7 @@
 #define PULSES_PER_ROTATION     20                      //The number of holes in the wheel encoder. The speed sensor reads each hole as a pulse.
 
 #define SPEED_SENSOR_ONE_PIN    27                      //pin 36(GPIO 16)
-#define SPEED_SENSOR_TWO_PIN    28                      //pin 38(GPIO 20)
 #define SPEED_SENSOR_THREE_PIN  29                      //pin 40(GPIO 21)
-#define SPEED_SENSOR_FOUR_PIN   1                       //pin 12(GPIO 18)
 
 #define TIME_TO_MEASURE         0.35                     //Time frame used to measure pulses.
 #define ARRAY_INIT_VAL          0.0                     //Initial value for array elements.
@@ -39,21 +37,9 @@ void speedSensorSet(void);
 //Contributors:
 int readPulses(int pin);
 
-//calculates and returns angular speed using formula omega = (2*PI*NumberOfPulses) / (Time * PulsesPerRotation). Speed in radians per second.
+//calculates and returns the speed of the wheel.
 //Contributors:
-double calculateAngularSpeed(int totalPulses);
-
-//calculates and returns linear speed using formula v = ωr. Speed in centimeters per second.
-//Contributors:
-double calculateLinearSpeed(double diameter, double angularSpeed);
-
-//It writes the speed to the array containing the speeds of each motor.
-//Contributors:
-void writeSpeed(int motor, double speed);
-
-//It reads the speed of the array containing the speeds of each motor.
-//Contributors:
-double readSpeed(int motor);
+double calculateSpeed(int totalPulses);
 
 //Function to be used in threads to display the speed read by the speed sensor.
 //Contributors:

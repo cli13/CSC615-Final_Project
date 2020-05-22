@@ -41,9 +41,9 @@ void motorsSet(void){
              }
 }
 
-void motorMove(int enabler, int control, int control2, int direction){
+void motorMove(int enabler, int control, int control2, int direction, int power){
     digitalWrite(enabler, HIGH);
-    softPwmWrite(enabler, 20);
+    softPwmWrite(enabler, power);
 
     if (direction) {
         digitalWrite(control2, LOW); // turn off the motorPin2
@@ -55,20 +55,6 @@ void motorMove(int enabler, int control, int control2, int direction){
         digitalWrite(control2, HIGH); // turn on the motorPin2
     }
     
-}
-
-void decreaseMotorPowerToZero(void) {
-    digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
-    digitalWrite(MOTOR_THREE_ENABLER, HIGH);
-    digitalWrite(MOTOR_TWO_ENABLER, HIGH);
-    digitalWrite(MOTOR_ONE_ENABLER, HIGH);
-
-    for (int i = 20; i > MIN_INTENCITY; i -= 10) {
-        softPwmWrite(MOTOR_FOUR_ENABLER, i);
-        softPwmWrite(MOTOR_THREE_ENABLER, i);
-        softPwmWrite(MOTOR_TWO_ENABLER, i);
-        softPwmWrite(MOTOR_ONE_ENABLER, i);
-    }
 }
 
 void motorStop(int enabler, int control, int control2){
@@ -98,48 +84,85 @@ void *motorToControlForward(void *ptr){
 
 }
 
-
-void *motorToControlBackward(void *ptr){
-
-    int motor;
-    motor = *((int *) ptr);
-
-    if (motor == 1) {
-        MOTOR_ONE_B;
-    } else if (motor == 2) {
-        MOTOR_TWO_B; 
-    } else if (motor == 3) {
-        MOTOR_THREE_B;
-    } else if (motor == 4) {
-        MOTOR_FOUR_B;
-    }
-
-    return NULL;
-
-}
-
-void runMotors(int time){
-  MOTOR_ONE_F;
-  MOTOR_TWO_F;
-  MOTOR_THREE_F;
-  MOTOR_FOUR_F;
-
-  delay(time);
-  MOTOR_ONE_S;
-  MOTOR_TWO_S;
-  MOTOR_THREE_S;
-  MOTOR_FOUR_S;
-
-  delay(1);
-  MOTOR_ONE_B;
-  MOTOR_TWO_B;
-  MOTOR_THREE_B;
-  MOTOR_FOUR_B;
-}
-
 void motorsCleanUp(void){
     MOTOR_ONE_S;
     MOTOR_TWO_S;
     MOTOR_THREE_S;
     MOTOR_FOUR_S;
+}
+
+
+void adjustMotorsSpeed(int side) {
+
+    if (side) {
+        digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+        digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+        digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+        digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+        softPwmWrite(MOTOR_FOUR_ENABLER, POWER+12);
+        softPwmWrite(MOTOR_THREE_ENABLER, POWER-12);
+        softPwmWrite(MOTOR_TWO_ENABLER, POWER-12);
+        softPwmWrite(MOTOR_ONE_ENABLER, POWER+12);
+    } else {
+        digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+        digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+        digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+        digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+        softPwmWrite(MOTOR_FOUR_ENABLER, POWER-12);
+        softPwmWrite(MOTOR_THREE_ENABLER, POWER+12);
+        softPwmWrite(MOTOR_TWO_ENABLER, POWER+12);
+        softPwmWrite(MOTOR_ONE_ENABLER, POWER-12);
+    }
+}
+
+
+void moveLeft() {
+    digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+    digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+    digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+    digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+    softPwmWrite(MOTOR_FOUR_ENABLER, 0);
+    softPwmWrite(MOTOR_THREE_ENABLER, 0);
+    softPwmWrite(MOTOR_TWO_ENABLER, POWER+40);
+    softPwmWrite(MOTOR_ONE_ENABLER, 0);
+}
+
+
+void moveRight() {
+    digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+    digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+    digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+    digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+    softPwmWrite(MOTOR_FOUR_ENABLER, 0);
+    softPwmWrite(MOTOR_THREE_ENABLER, 0);
+    softPwmWrite(MOTOR_TWO_ENABLER, 0);
+    softPwmWrite(MOTOR_ONE_ENABLER, POWER+50);
+}
+
+void moveRegular() {
+    digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+    digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+    digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+    digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+    softPwmWrite(MOTOR_FOUR_ENABLER, POWER);
+    softPwmWrite(MOTOR_THREE_ENABLER, POWER);
+    softPwmWrite(MOTOR_TWO_ENABLER, POWER);
+    softPwmWrite(MOTOR_ONE_ENABLER, POWER);
+}
+
+void stopMotors() {
+    digitalWrite(MOTOR_FOUR_ENABLER, HIGH);
+    digitalWrite(MOTOR_THREE_ENABLER, HIGH);
+    digitalWrite(MOTOR_TWO_ENABLER, HIGH);
+    digitalWrite(MOTOR_ONE_ENABLER, HIGH);
+
+    softPwmWrite(MOTOR_FOUR_ENABLER, 0);
+    softPwmWrite(MOTOR_THREE_ENABLER, 0);
+    softPwmWrite(MOTOR_TWO_ENABLER, 0);
+    softPwmWrite(MOTOR_ONE_ENABLER, 0);
 }

@@ -18,9 +18,9 @@
 #include <pthread.h>
 #include <wiringPi.h>
 
-#define TRACKSENSOR_ONE_PIN       24  //pin 35(GPIO 19)
-#define TRACKSENSOR_TWO_PIN       7  //pin 37(GPIO 26)
-#define LINESENSOR_ONE_PIN        25   //pin 7 (GPIO  4)
+#define LINESENSOR_RIGHT_PIN       24  //pin 35(GPIO 19)
+#define LINESENSOR_LEFT_PIN       7  //pin 37(GPIO 26)
+#define LINESENSOR_MIDDLE_PIN        25   //pin 7 (GPIO  4)
 
 //function signatures and documentation to be added later
 
@@ -34,12 +34,5 @@ void lineSensorSetup(void);
 
 //This function reads a linepin and return the pin's output
 int readLinePin(int readPin);
-
-//This function check whether the linesensor is detecting a line or not
-//parameter: the pin of the linesensor
-//return true when the linesensor detect a line, return false otherwise
-bool isOnLine(int);
-
-bool isObjectInFront(void);
 
 #endif
